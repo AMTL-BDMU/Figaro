@@ -1,76 +1,128 @@
-Sep-19 15:48:53.336 [main] DEBUG nextflow.cli.Launcher - $> nextflow run sierra.nf
-Sep-19 15:48:53.407 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.04.1
-Sep-19 15:48:53.429 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/ritmadmin/.nextflow/plugins; core-plugins: nf-amazon@1.16.2,nf-azure@1.0.1,nf-codecommit@0.1.4,nf-console@1.0.5,nf-ga4gh@1.0.5,nf-google@1.7.3,nf-tower@1.5.12,nf-wave@0.8.2
-Sep-19 15:48:53.438 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Sep-19 15:48:53.439 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Sep-19 15:48:53.442 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Sep-19 15:48:53.452 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Sep-19 15:48:53.543 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
-Sep-19 15:48:53.567 [main] INFO  nextflow.cli.CmdRun - Launching `sierra.nf` [hungry_lagrange] DSL2 - revision: ecfe4b4493
-Sep-19 15:48:53.569 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Sep-19 15:48:53.569 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Sep-19 15:48:53.581 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /home/ritmadmin/.nextflow/secrets/store.json
-Sep-19 15:48:53.589 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@5f78de22] - activable => nextflow.secret.LocalSecretsProvider@5f78de22
-Sep-19 15:48:53.667 [main] DEBUG nextflow.Session - Session UUID: 076454a1-314a-4977-821a-c0bdf3778487
-Sep-19 15:48:53.667 [main] DEBUG nextflow.Session - Run name: hungry_lagrange
-Sep-19 15:48:53.670 [main] DEBUG nextflow.Session - Executor pool size: 448
-Sep-19 15:48:53.682 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=1344; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
-Sep-19 15:48:53.719 [main] DEBUG nextflow.cli.CmdRun - 
-  Version: 23.04.1 build 5866
-  Created: 15-04-2023 06:51 UTC (14:51 PDT)
-  System: Linux 5.15.0-83-generic
-  Runtime: Groovy 3.0.16 on OpenJDK 64-Bit Server VM 17.0.8.1+1-Ubuntu-0ubuntu120.04
-  Encoding: UTF-8 (UTF-8)
-  Process: 2830115@bdmu-goast [127.0.1.1]
-  CPUs: 448 - Mem: 3 TB (2.2 TB) - Swap: 2 GB (2 GB)
-Sep-19 15:48:53.750 [main] DEBUG nextflow.Session - Work-dir: /media/bdmu-goast/data_user_home/ritmadmin/ONT_pipe/modules/work [ext2/ext3]
-Sep-19 15:48:53.750 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /media/bdmu-goast/data_user_home/ritmadmin/ONT_pipe/modules/bin
-Sep-19 15:48:53.763 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Sep-19 15:48:53.774 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Sep-19 15:48:53.799 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Sep-19 15:48:53.810 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 449; maxThreads: 1000
-Sep-19 15:48:53.903 [main] DEBUG nextflow.Session - Session start
-Sep-19 15:48:54.722 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Sep-19 15:48:54.744 [main] DEBUG nextflow.Session - Session aborted -- Cause: =============================================================================
-=                                WARNING                                    =
-= You are running this script using DSL2 syntax, however it does not        = 
-= contain any 'workflow' definition so there's nothing for Nextflow to run. =
-=                                                                           =
-= If this script was written using Nextflow DSL1 syntax, please add the     = 
-= setting 'nextflow.enable.dsl=1' to the nextflow.config file or use the    =
-= command-line option '-dsl1' when running the pipeline.                    =
-=                                                                           =
-= More details at this link: https://www.nextflow.io/docs/latest/dsl2.html  =
-=============================================================================
-
-Sep-19 15:48:54.755 [main] DEBUG nextflow.cli.Launcher - Operation aborted
-nextflow.exception.AbortOperationException: =============================================================================
-=                                WARNING                                    =
-= You are running this script using DSL2 syntax, however it does not        = 
-= contain any 'workflow' definition so there's nothing for Nextflow to run. =
-=                                                                           =
-= If this script was written using Nextflow DSL1 syntax, please add the     = 
-= setting 'nextflow.enable.dsl=1' to the nextflow.config file or use the    =
-= command-line option '-dsl1' when running the pipeline.                    =
-=                                                                           =
-= More details at this link: https://www.nextflow.io/docs/latest/dsl2.html  =
-=============================================================================
-
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:72)
-	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:105)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:59)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
-	at nextflow.script.BaseScript.run0(BaseScript.groovy:176)
-	at nextflow.script.BaseScript.run(BaseScript.groovy:192)
-	at nextflow.script.ScriptParser.runScript(ScriptParser.groovy:229)
-	at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:224)
-	at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:130)
-	at nextflow.cli.CmdRun.run(CmdRun.groovy:368)
+Oct-13 10:11:09.498 [main] DEBUG nextflow.cli.Launcher - $> nextflow run ONT_pipe --reads 09JUN2023_HIV_OPTIMIZATION_copy --out_dir ONT_pipe_result
+Oct-13 10:11:09.605 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.04.1
+Oct-13 10:11:09.636 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/root/.nextflow/plugins; core-plugins: nf-amazon@1.16.2,nf-azure@1.0.1,nf-codecommit@0.1.4,nf-console@1.0.5,nf-ga4gh@1.0.5,nf-google@1.7.3,nf-tower@1.5.12,nf-wave@0.8.2
+Oct-13 10:11:09.651 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Oct-13 10:11:09.652 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Oct-13 10:11:09.659 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Oct-13 10:11:09.674 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Oct-13 10:11:09.694 [main] DEBUG nextflow.scm.ProviderConfig - Using SCM config path: /root/.nextflow/scm
+Oct-13 10:11:09.704 [main] DEBUG nextflow.scm.AssetManager - Listing projects in folder: /root/.nextflow/assets
+Oct-13 10:11:09.735 [main] DEBUG nextflow.scm.RepositoryFactory - Found Git repository result: [RepositoryFactory]
+Oct-13 10:11:09.746 [main] INFO  nextflow.cli.CmdRun - Pulling nextflow-io/ONT_pipe ...
+Oct-13 10:11:09.747 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/nextflow-io/ONT_pipe/contents/nextflow.config
+Oct-13 10:11:10.297 [main] DEBUG nextflow.scm.RepositoryProvider - Response status: 404 -- {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content"}
+Oct-13 10:11:10.309 [main] WARN  nextflow.scm.AssetManager - Cannot read project manifest -- Cause: Remote resource not found: https://api.github.com/repos/nextflow-io/ONT_pipe/contents/nextflow.config
+nextflow.exception.AbortOperationException: Remote resource not found: https://api.github.com/repos/nextflow-io/ONT_pipe/contents/nextflow.config
+	at nextflow.scm.RepositoryProvider.checkResponse(RepositoryProvider.groovy:240)
+	at nextflow.scm.RepositoryProvider.invoke(RepositoryProvider.groovy:181)
+	at nextflow.scm.RepositoryProvider.memoizedMethodPriv$invokeAndParseResponseString(RepositoryProvider.groovy:282)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1258)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1036)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1019)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:97)
+	at nextflow.scm.RepositoryProvider$_closure3.doCall(RepositoryProvider.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+	at groovy.lang.Closure.call(Closure.java:428)
+	at nextflow.scm.RepositoryProvider.invokeAndParseResponse(RepositoryProvider.groovy)
+	at nextflow.scm.GithubRepositoryProvider.readBytes(GithubRepositoryProvider.groovy:117)
+	at nextflow.scm.RepositoryProvider.readText(RepositoryProvider.groovy:296)
+	at nextflow.scm.AssetManager.getManifest0(AssetManager.groovy:441)
+	at nextflow.scm.AssetManager.memoizedMethodPriv$getManifest(AssetManager.groovy:434)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1258)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1036)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1019)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:97)
+	at nextflow.scm.AssetManager$_closure2.doCall(AssetManager.groovy)
+	at nextflow.scm.AssetManager$_closure2.doCall(AssetManager.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+	at groovy.lang.Closure.call(Closure.java:406)
+	at nextflow.scm.AssetManager.getManifest(AssetManager.groovy)
+	at nextflow.scm.AssetManager.getMainScriptName(AssetManager.groovy:417)
+	at nextflow.scm.AssetManager.checkValidRemoteRepo(AssetManager.groovy:375)
+	at nextflow.scm.AssetManager.download(AssetManager.groovy:584)
+	at nextflow.cli.CmdRun.getScriptFile0(CmdRun.groovy:525)
+	at nextflow.cli.CmdRun.getScriptFile(CmdRun.groovy:458)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:314)
+	at nextflow.cli.Launcher.run(Launcher.groovy:494)
+	at nextflow.cli.Launcher.main(Launcher.groovy:653)
+Oct-13 10:11:10.323 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/nextflow-io/ONT_pipe/contents/main.nf
+Oct-13 10:11:10.368 [main] DEBUG nextflow.scm.RepositoryProvider - Response status: 404 -- {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content"}
+Oct-13 10:11:10.369 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Remote resource not found: https://api.github.com/repos/nextflow-io/ONT_pipe/contents/main.nf
+	at nextflow.scm.RepositoryProvider.checkResponse(RepositoryProvider.groovy:240)
+	at nextflow.scm.RepositoryProvider.invoke(RepositoryProvider.groovy:181)
+	at nextflow.scm.RepositoryProvider.memoizedMethodPriv$invokeAndParseResponseString(RepositoryProvider.groovy:282)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1258)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1036)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1019)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:97)
+	at nextflow.scm.RepositoryProvider$_closure3.doCall(RepositoryProvider.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+	at groovy.lang.Closure.call(Closure.java:428)
+	at nextflow.scm.RepositoryProvider.invokeAndParseResponse(RepositoryProvider.groovy)
+	at nextflow.scm.GithubRepositoryProvider.readBytes(GithubRepositoryProvider.groovy:117)
+	at nextflow.scm.RepositoryProvider.validateFor(RepositoryProvider.groovy:310)
+	at nextflow.scm.AssetManager.checkValidRemoteRepo(AssetManager.groovy:376)
+	at nextflow.scm.AssetManager.download(AssetManager.groovy:584)
+	at nextflow.cli.CmdRun.getScriptFile0(CmdRun.groovy:525)
+	at nextflow.cli.CmdRun.getScriptFile(CmdRun.groovy:458)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:314)
 	at nextflow.cli.Launcher.run(Launcher.groovy:494)
 	at nextflow.cli.Launcher.main(Launcher.groovy:653)

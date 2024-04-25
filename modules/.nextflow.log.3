@@ -1,38 +1,38 @@
-Sep-14 14:07:36.656 [main] DEBUG nextflow.cli.Launcher - $> nextflow run nanoq.nf
-Sep-14 14:07:36.825 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.6
-Sep-14 14:07:36.875 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/ritmadmin/.nextflow/plugins; core-plugins: nf-amazon@1.11.3,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.3
-Sep-14 14:07:36.894 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Sep-14 14:07:36.896 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Sep-14 14:07:36.901 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Sep-14 14:07:36.918 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Sep-14 14:07:37.002 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=1 by probing script field
-Sep-14 14:07:37.045 [main] INFO  nextflow.cli.CmdRun - Launching `nanoq.nf` [determined_becquerel] DSL1 - revision: 2934f84c5a
-Sep-14 14:07:37.046 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Sep-14 14:07:37.046 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Sep-14 14:07:37.064 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /home/ritmadmin/.nextflow/secrets/store.json
-Sep-14 14:07:37.076 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@234a8f27] - activable => nextflow.secret.LocalSecretsProvider@234a8f27
-Sep-14 14:07:37.209 [main] DEBUG nextflow.Session - Session UUID: e71a3473-53ca-4ace-808d-0e327b2e1272
-Sep-14 14:07:37.209 [main] DEBUG nextflow.Session - Run name: determined_becquerel
-Sep-14 14:07:37.210 [main] DEBUG nextflow.Session - Executor pool size: 128
-Sep-14 14:07:37.227 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=384; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
-Sep-14 14:07:37.276 [main] DEBUG nextflow.cli.CmdRun - 
+Sep-14 14:41:15.916 [main] DEBUG nextflow.cli.Launcher - $> nextflow run nanoq.nf --input_dir ../test/09JUN2023_HIV_OPTIMIZATION/20230609_1532_MN37014_FAV34455_7ded050a/fastq_pass/ --ou_dir results
+Sep-14 14:41:16.102 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.6
+Sep-14 14:41:16.140 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/ritmadmin/.nextflow/plugins; core-plugins: nf-amazon@1.11.3,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.3
+Sep-14 14:41:16.160 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Sep-14 14:41:16.162 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Sep-14 14:41:16.168 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Sep-14 14:41:16.190 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Sep-14 14:41:16.300 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=1 by probing script field
+Sep-14 14:41:16.337 [main] INFO  nextflow.cli.CmdRun - Launching `nanoq.nf` [hungry_kirch] DSL1 - revision: b284287008
+Sep-14 14:41:16.339 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Sep-14 14:41:16.339 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Sep-14 14:41:16.362 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /home/ritmadmin/.nextflow/secrets/store.json
+Sep-14 14:41:16.378 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@16ade133] - activable => nextflow.secret.LocalSecretsProvider@16ade133
+Sep-14 14:41:16.488 [main] DEBUG nextflow.Session - Session UUID: d3d771c6-1cb4-4c3f-93a8-cd298c9b7652
+Sep-14 14:41:16.489 [main] DEBUG nextflow.Session - Run name: hungry_kirch
+Sep-14 14:41:16.489 [main] DEBUG nextflow.Session - Executor pool size: 128
+Sep-14 14:41:16.504 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=384; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Sep-14 14:41:16.558 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 22.10.6 build 5843
   Created: 23-01-2023 23:20 UTC (24-01-2023 07:20 PDT)
   System: Linux 4.4.0-210-generic
   Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 11.0.13+7-b1751.21
   Encoding: UTF-8 (UTF-8)
-  Process: 60515@ritmhpc2 [127.0.1.1]
-  CPUs: 128 - Mem: 944.8 GB (13.9 GB) - Swap: 27.9 GB (27.8 GB)
-Sep-14 14:07:37.404 [main] DEBUG nextflow.Session - Work-dir: /home/ritmadmin/failoverstorage/hiv_pipe/ONT_pipe/modules/work [nfs]
-Sep-14 14:07:37.405 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ritmadmin/failoverstorage/hiv_pipe/ONT_pipe/modules/bin
-Sep-14 14:07:37.424 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Sep-14 14:07:37.443 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Sep-14 14:07:37.486 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Sep-14 14:07:37.506 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 129; maxThreads: 1000
-Sep-14 14:07:37.649 [main] DEBUG nextflow.Session - Session start
-Sep-14 14:07:38.995 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Sep-14 14:07:39.100 [main] DEBUG nextflow.Session - Session aborted -- Cause: Unknown process directive: `$`
-Sep-14 14:07:39.133 [main] ERROR nextflow.cli.Launcher - @unknown
+  Process: 83071@ritmhpc2 [127.0.1.1]
+  CPUs: 128 - Mem: 944.8 GB (14.3 GB) - Swap: 27.9 GB (27.8 GB)
+Sep-14 14:41:16.703 [main] DEBUG nextflow.Session - Work-dir: /home/ritmadmin/failoverstorage/hiv_pipe/ONT_pipe/modules/work [nfs]
+Sep-14 14:41:16.704 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/ritmadmin/failoverstorage/hiv_pipe/ONT_pipe/modules/bin
+Sep-14 14:41:16.723 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Sep-14 14:41:16.740 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Sep-14 14:41:16.774 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Sep-14 14:41:16.791 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 129; maxThreads: 1000
+Sep-14 14:41:16.919 [main] DEBUG nextflow.Session - Session start
+Sep-14 14:41:18.283 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Sep-14 14:41:18.352 [main] DEBUG nextflow.Session - Session aborted -- Cause: Unknown process directive: `$`
+Sep-14 14:41:18.383 [main] ERROR nextflow.cli.Launcher - @unknown
 nextflow.exception.IllegalDirectiveException: Unknown process directive: `$`
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -62,8 +62,8 @@ nextflow.exception.IllegalDirectiveException: Unknown process directive: `$`
 	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
-	at Script_3173d5eb$_runScript_closure1.doCall(Script_3173d5eb:17)
-	at Script_3173d5eb$_runScript_closure1.doCall(Script_3173d5eb)
+	at Script_c28f2261$_runScript_closure1.doCall(Script_c28f2261:18)
+	at Script_c28f2261$_runScript_closure1.doCall(Script_c28f2261)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -90,7 +90,7 @@ nextflow.exception.IllegalDirectiveException: Unknown process directive: `$`
 	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:194)
-	at Script_3173d5eb.runScript(Script_3173d5eb:3)
+	at Script_c28f2261.runScript(Script_c28f2261:3)
 	at nextflow.script.BaseScript.runDsl1(BaseScript.groovy:164)
 	at nextflow.script.BaseScript.run(BaseScript.groovy:217)
 	at nextflow.script.ScriptParser.runScript(ScriptParser.groovy:230)
