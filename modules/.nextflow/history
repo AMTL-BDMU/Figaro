@@ -1,0 +1,5 @@
+2023-09-14 14:00:51	-	silly_varahamihira	-	9af9643f2495a619afdd322bfe9d43d3	98195120-d834-45e4-8ce8-f5f6dda79de2	nextflow run nanoq.nf
+2023-09-14 14:07:37	-	determined_becquerel	-	2934f84c5a218c5ba611b430c586d60f	e71a3473-53ca-4ace-808d-0e327b2e1272	nextflow run nanoq.nf
+2023-09-14 14:40:33	-	spontaneous_dijkstra	-	2934f84c5a218c5ba611b430c586d60f	d320a0c2-3f41-4137-8b29-43ab227298e7	nextflow run nanoq.nf --input_dir ../test/09JUN2023_HIV_OPTIMIZATION/20230609_1532_MN37014_FAV34455_7ded050a/fastq_pass/ --ou_dir results
+2023-09-14 14:41:16	-	hungry_kirch	-	b284287008f320b650f97d9068defae3	d3d771c6-1cb4-4c3f-93a8-cd298c9b7652	nextflow run nanoq.nf --input_dir ../test/09JUN2023_HIV_OPTIMIZATION/20230609_1532_MN37014_FAV34455_7ded050a/fastq_pass/ --ou_dir results
+2023-09-19 15:48:53	-	hungry_lagrange	-	ecfe4b44939599d17abef221273ff8fd	076454a1-314a-4977-821a-c0bdf3778487	nextflow run sierra.nf

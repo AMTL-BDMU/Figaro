@@ -1,0 +1,82 @@
+#! /bin/bash
+
+SYSTEM=$(uname -s)
+REALPATH_CMD=$(which realpath)
+DOCKER_CMD=$(which docker)
+
+BOLD="\x1b[1m"
+NORM="\x1b[0m"
+
+set -e
+
+if [ ! -f "$REALPATH_CMD" ]; then
+  echo "Command dependency 'realpath' is not found/installed." >&2
+  case "${SYSTEM}" in
+    Darwin*)
+      echo -e "To install using Homebrew (https://brew.sh/): ${BOLD}brew install coreutils${NORM}" >&2
+      ;;
+  esac
+  exit 5
+fi
+
+if [ ! -f "$DOCKER_CMD" ]; then
+  echo "Command dependency 'docker' is not found/installed." >&2
+  echo -e "Visit ${BOLD}https://docs.docker.com/get-docker/${NORM} for installation." >&2
+  exit 4
+fi
+
+USAGE="command usage: $(basename $0) [-s] [-m] -r <PROFILE_PATH> -d <FASTQ_DIRECTORY>"
+SKIP_REMOTE_DOCKER=0
+AUTOPAIRING=""
+
+while getopts ':r:d:ms' OPT; do
+    case "$OPT" in
+        r)
+            PROFILE=$OPTARG
+            ;;
+        d)
+            WORKDIR=$OPTARG
+            ;;
+        s)
+            SKIP_REMOTE_DOCKER=1
+            ;;
+        m)
+            AUTOPAIRING='-m'
+            ;;
+        \?)
+            echo $USAGE >&2
+            exit 0
+            ;;
+        :) echo "Missing option argument for -$OPTARG\n$USAGE" >&2; exit 1;;
+        *) echo "Unimplemented option: -$OPTARG\n$USAGE" >&2; exit 1;;
+    esac
+done
+
+if [ -z $PROFILE ]; then
+    echo "Missing required option argument -r <PROFILE_PATH>" >&2
+    exit 1
+fi
+
+if [ -z $WORKDIR ]; then
+    echo "Missing required option argument -d <FASTQ_DIRECTORY>" >&2
+    exit 1
+fi
+
+if [ ! -f $PROFILE ]; then
+    echo "Value of -r <PROFILE> is not a valid file" >&2
+    exit 1
+fi
+
+PROFILE="$(realpath $PROFILE)" || echo $USAGE || false
+WORKDIR="$(realpath $WORKDIR)" || echo $USAGE || false
+
+if [ "$SKIP_REMOTE_DOCKER" -eq "0" ]; then
+  #docker pull hivdb/codfreq-runner:latest
+  docker pull ufuomababatunde/codefreq:v1.0.0
+fi
+docker run \
+    -i --rm \
+    --mount type=bind,source="$PROFILE",target=/tmp/profile.json \
+    --mount type=bind,source="$WORKDIR",target=/fastqfiles \
+    ufuomababatunde/codefreq:v1.0.0 \
+    bin/align-all-local -r /tmp/profile.json -d /fastqfiles $AUTOPAIRING
