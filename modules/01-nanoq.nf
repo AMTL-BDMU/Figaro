@@ -43,18 +43,41 @@ process nanoq {
         tuple val(sample), path(fastq), path (barcodePath)
 
         output:
-        tuple val(sample), path("*.nanoq.fastq"), path (barcodePath), emit: nanoq_fastq
+        tuple val(sample), path("*.nanoq.fastq.gz"), path (barcodePath), emit: nanoq_fastq
         path "${sample}_nanoq_report.txt"
 
         script:
         """
         nanoq \
         --input ${fastq} \
-        --min-len 75 \
+        --min-len 200 \
         --min-qual 12 \
-        --trim-start 25 \
-        --trim-end 25 \
-        --output ${sample}.nanoq.fastq \
+        --output ${sample}.nanoq.fastq.gz \
         --report ${sample}_nanoq_report.txt
+        """
+}
+
+process fastqc {
+        cpus 1
+        container 'staphb/fastqc:latest'
+        tag "Quality report for ${sample}"
+
+
+        publishDir (
+        path: "${params.out_dir}/01_preprocess",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        tuple val(sample), path(fastq), path (barcodePath)
+
+        output:
+
+
+        script:
+        """
+        fastqc --noextract --nogroup -o 
         """
 }
