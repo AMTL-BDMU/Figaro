@@ -9,24 +9,24 @@ include { minimap2 } from './modules/02-reference_map.nf'
 include { samtools } from './modules/02-reference_map.nf'
 include { nanopolish } from './modules/02-reference_map.nf'
 
-include { minimap2_2 } from './modules/03-consensus_map.nf'
-include { samtools_2 } from './modules/03-consensus_map.nf'
-include { nanopolish_2 } from './modules/03-consensus_map.nf'
+//include { minimap2_2 } from './modules/03-consensus_map.nf'
+//include { samtools_2 } from './modules/03-consensus_map.nf'
+//include { nanopolish_2 } from './modules/03-consensus_map.nf'
 
-include { minimap2_3 } from './modules/04-consensus_map.nf'
-include { samtools_3 } from './modules/04-consensus_map.nf'
-include { nanopolish_3 } from './modules/04-consensus_map.nf'
+//include { minimap2_3 } from './modules/04-consensus_map.nf'
+//include { samtools_3 } from './modules/04-consensus_map.nf'
+//include { nanopolish_3 } from './modules/04-consensus_map.nf'
 
-include { bgzip } from './modules/04-consensus_map.nf'
+//include { bgzip } from './modules/04-consensus_map.nf'
 
-include { consens_bcf } from './modules/05-consensus_mixedSite.nf'
-include { consens_quasi } from './modules/05-consensus_mixedSite.nf'
-include { consens_varscan } from './modules/05-consensus_mixedSite.nf'
-include { consens_lofreq } from './modules/05-consensus_mixedSite.nf'
+//include { consens_bcf } from './modules/05-consensus_mixedSite.nf'
+//include { consens_quasi } from './modules/05-consensus_mixedSite.nf'
+//include { consens_varscan } from './modules/05-consensus_mixedSite.nf'
+//include { consens_lofreq } from './modules/05-consensus_mixedSite.nf'
 
-include { sierra } from './modules/06-sierra.nf' 
-include { reportDrugResistance } from './modules/07-reportDrugResistance.nf'
-include { drugResistanceScoreCombine } from './modules/08-drugResistanceScoreCombine.nf'
+//include { sierra } from './modules/06-sierra.nf' 
+//include { reportDrugResistance } from './modules/07-reportDrugResistance.nf'
+//include { drugResistanceScoreCombine } from './modules/08-drugResistanceScoreCombine.nf'
 
 
 
