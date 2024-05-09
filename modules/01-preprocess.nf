@@ -15,7 +15,7 @@ process cat {
         path samplePath
 
         output:
-        tuple val (samplePath), path ("*.fastq.gz"), emit: cat_fastq
+        path ("*.fastq.gz"), emit: cat_fastq
 
 
         script:
@@ -39,7 +39,7 @@ process nanoq {
         )
 
         input:
-        tuple val(sample), path(cat_fastq)
+        path (cat_fastq)
 
         output:
         tuple val(sample), path("*.nanoq.fastq.gz"), emit: nanoq_fastq
@@ -51,8 +51,8 @@ process nanoq {
         --input ${cat_fastq} \
         --min-len 20 \
         --min-qual 12 \
-        --output ${sample}.nanoq.fastq.gz \
-        --report ${sample}_nanoq_report.txt
+        --output ${cat_fastq.baseName}.nanoq.fastq.gz \
+        --report ${cat_fastq.baseName}_nanoq_report.txt
         """
 }
 
