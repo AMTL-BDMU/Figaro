@@ -1,26 +1,26 @@
 #!/usr/bin/env nextflow
 
 process cat {
-        tag "concatenating fastq.gz files in  ${barcodePath.name}"
+        tag "concatenating fastq.gz files in  ${samplePath}"
 
 
         publishDir (
-        path: "${params.out_dir}/01_preprocess/",
+        path: "${params.out_dir}/01_preprocess/01_catFastq",
         mode: 'copy',
         overwrite: 'true'
         )
 
 
         input:
-        path barcodePath
+        path samplePath
 
         output:
-        tuple val(barcodePath.name), path ("*.fastq.gz"), path (barcodePath), emit: cat_fastq
+        tuple val (samplePath), path ("*.fastq.gz"), emit: cat_fastq
 
 
         script:
         """
-        cat ${barcodePath}/*.fastq.gz > ${barcodePath.name}.fastq.gz
+        cat ${samplePath}/*.fastq.gz > ${samplePath}.fastq.gz
         """
 }
 
@@ -33,24 +33,23 @@ process nanoq {
 
 
         publishDir (
-        path: "${params.out_dir}/01_preprocess",
+        path: "${params.out_dir}/01_preprocess/01_nanoqFastq",
         mode: 'copy',
         overwrite: 'true'
         )
 
-
         input:
-        tuple val(sample), path(fastq), path (barcodePath)
+        tuple val(sample), path(cat_fastq)
 
         output:
-        tuple val(sample), path("*.nanoq.fastq.gz"), path (barcodePath), emit: nanoq_fastq
+        tuple val(sample), path("*.nanoq.fastq.gz"), emit: nanoq_fastq
         path "${sample}_nanoq_report.txt"
 
         script:
         """
         nanoq \
-        --input ${fastq} \
-        --min-len 200 \
+        --input ${cat_fastq} \
+        --min-len 20 \
         --min-qual 12 \
         --output ${sample}.nanoq.fastq.gz \
         --report ${sample}_nanoq_report.txt
@@ -78,6 +77,31 @@ process fastqc {
 
         script:
         """
-        fastqc --noextract --nogroup -o 
+        
+        """
+}
+
+process multiqc {
+        cpus 1
+        container 'staphb/fastqc:latest'
+        tag "Quality report for ${sample}"
+
+
+        publishDir (
+        path: "${params.out_dir}/01_preprocess",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        tuple val(sample), path(fastq), path (barcodePath)
+
+        output:
+
+
+        script:
+        """
+        
         """
 }
