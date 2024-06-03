@@ -6,7 +6,7 @@ process fastqc {
     publishDir path: { type == 'raw' ? "${params.outputDir}/01_fastqcRaw" : "${params.outputDir}/02_fastqcTrimmed" }, mode: 'copy', overwrite: true
 
     input:
-    tuple val(sample), path(fastq),
+    tuple val(sample), path(fastq)
     val(type)
 
     output:
