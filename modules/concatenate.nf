@@ -1,5 +1,5 @@
 process concatenate {
-        tag "concatenating fastq.gz files in  ${samplePath}"
+        tag "concatenating fastq.gz files in ${sample}"
 
 
         publishDir (
@@ -13,7 +13,7 @@ process concatenate {
         tuple val(sample), path(samplePath)
 
         output:
-        tuple val(sample), path ("*.fastq.gz"), emit: cat_fastq
+        tuple val(sample), path("*.fastq.gz"), emit: ch_concatFastq
 
 
         script:
