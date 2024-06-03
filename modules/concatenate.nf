@@ -10,14 +10,14 @@ process concatenate {
 
 
         input:
-        path(samplePath)
+        tuple val(sample), path(samplePath)
 
         output:
-        path ("*.fastq.gz"), emit: cat_fastq
+        tuple val(sample), path ("*.fastq.gz"), emit: cat_fastq
 
 
         script:
         """
-        cat ${samplePath}/*.fastq.gz > ${samplePath}.fastq.gz
+        cat ${samplePath}/*.fastq.gz > ${sample}.fastq.gz
         """
 }

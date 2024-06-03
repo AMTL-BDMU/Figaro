@@ -2,6 +2,7 @@
 nextflow.enable.dsl=2
 
 // import modules
+include {concatenate} from './modules/concatenate.nf'
 
 workflow {
 
@@ -25,6 +26,9 @@ workflow {
                     }
             
             ch_sample.view()
+            
+            concatenate(ch_sample)
+            concatenate.out.cat_fastq.view()
 
 
         } else if (fastqDir) {
@@ -42,5 +46,7 @@ workflow {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
             System.exit(1)
         }
+
+
 
 }
