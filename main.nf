@@ -10,6 +10,7 @@ workflow {
 
     ch_sample = Channel
             .fromPath(nanoporeBarcodeDirs)
+            .ifEmpty{exit 1, "Cannot find any barcode directories."}
             .filter(~/.*barcode[0-9]{1,4}$/)
             .filter{ d ->
                 def count = 0
@@ -20,8 +21,7 @@ workflow {
                 }
                 count > params.OntMinReadsPerBarcode
             }
-            .ifEmpty{exit 1, "Cannot find any barcode directories."
-            }
+
 
 
 
