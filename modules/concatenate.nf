@@ -3,7 +3,7 @@ process concatenate {
 
 
         publishDir (
-        path: "${params.out_dir}/01_concatenated",
+        path: "${params.outputDir}/01_concatenated",
         mode: 'copy',
         overwrite: 'true'
         )
