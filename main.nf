@@ -4,6 +4,7 @@ nextflow.enable.dsl=2
 // import modules
 include {concatenate} from './modules/concatenate.nf'
 include {nanoq} from './modules/nanoq.nf'
+include {fastqc} from './modules/fastqc.nf'
 
 
 workflow {
@@ -29,6 +30,8 @@ workflow {
             
            
             concatenate(ch_sample)
+            fastqc(concatenate.out.concatFastq, raw)
+            nanoq(concatenate.out.concatFastq)
 
 
         } else if (fastqDir) {
@@ -40,14 +43,14 @@ workflow {
                         def reads = file.countFastq()
                         return [baseName, file]
                     }
-
-            concatenate(ch_sample)
+            fastqc(ch_sample, raw)
+            nanoq(ch_sample)
 
         } else {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
             System.exit(1)
         }
 
-        nanoq(concatenate.out.concatFastq)
+        fastqc(nanoq.out.trimmedFastq, trimmed)
 
 }
