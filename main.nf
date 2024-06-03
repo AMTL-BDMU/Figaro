@@ -8,8 +8,7 @@ workflow {
     // Set channel for the fastq directories
     nanoporeBarcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
 
-    ch_sample = Channel
-            .fromPath(nanoporeBarcodeDirs)
+    ch_sample = Channel.fromPath(nanoporeBarcodeDirs)
             .filter(~/.*barcode[0-9]{1,4}$/)
             .filter{ d ->
                 def count = 0
