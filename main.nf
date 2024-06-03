@@ -8,7 +8,8 @@ workflow {
     // Set channel for the fastq directories
     nanoporeBarcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
 
-    ch_sample = Channel.fromPath(nanoporeBarcodeDirs)
+    Channel
+            .fromPath(nanoporeBarcodeDirs)
             .filter(~/.*barcode[0-9]{1,4}$/)
             .filter{ d ->
                 def count = 0
@@ -19,6 +20,7 @@ workflow {
                 }
                 count > params.OntMinReadsPerBarcode
             }
+            .set{ch_sample}
             .ifEmpty{ error "Cannot find any barcode directories matching: ${params.inputDir}"
             }
 
