@@ -6,7 +6,7 @@ nextflow.enable.dsl=2
 workflow {
 
     // Set channel for the fastq directories
-    nanoporeBarcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
+    nanoporeBarcodeDirs = file("$PWD/${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
 
     ch_sample = Channel
             .fromPath(nanoporeBarcodeDirs)
