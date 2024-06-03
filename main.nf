@@ -25,8 +25,7 @@ workflow {
                         return[dir.baseName, dir]
                     }
             
-            ch_sample.view()
-            
+           
             concatenate(ch_sample)
             concatenate.out.cat_fastq.view()
 
