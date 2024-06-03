@@ -6,20 +6,19 @@ nextflow.enable.dsl=2
 workflow {
 
     // Set channel for the fastq directories
-    nanoporeBarcodeDirs = file("$PWD/${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
+    barcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
 
     ch_sample = Channel
-            .fromPath(nanoporeBarcodeDirs)
-            .ifEmpty{exit 1, "Cannot find any barcode directories."}
+            .fromPath(barcodeDirs)
             .filter(~/.*barcode[0-9]{1,4}$/)
-            .filter{ d ->
+            .map{ dir ->
                 def count = 0
-                for (x in d.listFiles()) {
-                    if (x.isFile()) {
+                for (x in dir.listFiles()) {
+                    if (x.isFile() && x.toString().contains('.fastq')) {
                         count += x.countFastq()
                     }
                 }
-                count > params.OntMinReadsPerBarcode
+                return[dir.baseName, dir, count]
             }
 
 
