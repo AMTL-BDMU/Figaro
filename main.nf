@@ -29,11 +29,10 @@ workflow {
             
            
             concatenate(ch_sample)
-            concatenate.out.ch_concatFastq.view()
 
 
         } else if (fastqDir) {
-            ch_concatFastq = Channel
+            ch_sample = Channel
                     .fromPath(fastqDir)
                     .filter(file -> file.name =~ /.*\.fastq(\.gz)?$/)
                     .map{file ->
@@ -42,12 +41,13 @@ workflow {
                         return [baseName, file]
                     }
 
-            ch_concatFastq.view()
+            concatenate(ch_sample)
+
         } else {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
             System.exit(1)
         }
 
-        nanoq(ch_concatFastq)
+        nanoq(concatenate.out.concatFastq)
 
 }

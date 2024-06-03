@@ -13,7 +13,7 @@ process concatenate {
         tuple val(sample), path(samplePath)
 
         output:
-        tuple val(sample), path("*.fastq.gz"), emit: ch_concatFastq
+        tuple val(sample), path("*.fastq.gz"), emit: concatFastq
 
 
         script:
