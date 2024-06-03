@@ -31,9 +31,9 @@ workflow {
                 .map{it -> [ 'SAMPLE_1', 'single_barcode', it, 10000000 ]}
     } else {
         log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files \
-        or the concatenated fastq files \
-        e.g. --inputDir ./raw/fastq_pass/ \
-        or \
+        or the concatenated fastq files \n
+        e.g. --inputDir ./raw/fastq_pass/ \n
+        or \n
         --inputDir ./fastqConcatenated/"
         System.exit(1)
     }
