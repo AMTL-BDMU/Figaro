@@ -1,19 +1,52 @@
-process fastqc {
-    container 'ufuomababatunde/nanoq:v0.10.0'
+process fastqcRaw {
+        container 'staphb/fastqc:0.12.1'
 
-    tag "Check quality of ${sample}"
+        tag "Check quality of ${sample}"
 
-    publishDir path: { type == 'raw' ? "${params.outputDir}/01_fastqcRaw" : "${params.outputDir}/02_fastqcTrimmed" }, mode: 'copy', overwrite: true
+        publishDir (
+        path: "${params.outputDir}/01_fastqcRaw",
+        mode: 'copy',
+        overwrite: 'true'
+        )
 
-    input:
-    tuple val(sample), path(fastq)
-    val(type)
+        input:
+        tuple val(sample), path(fastq)
 
-    output:
-    tuple val(sample), path("*fastqc*"), emit: fastqc
+        output:
+        tuple val(sample), path("*fastqc*"), emit: qualRaw
 
-    script:
-    """
-    fastqc --outdir . ${fastq}
-    """
+
+        script:
+        """
+        fastqc \
+        --outdir .
+        $fastq
+        """
+}
+
+
+process fastqcTrimmed {
+        container 'staphb/fastqc:0.12.1'
+
+        tag "Check quality of ${sample}"
+
+        publishDir (
+        path: "${params.outputDir}/02_fastqcTrimmed",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+        input:
+        tuple val(sample), path(fastq)
+
+        output:
+        tuple val(sample), path("*fastqc*"), emit: qualTrimmed
+
+
+        script:
+        """
+        fastqc \
+        --outdir .
+        $fastq
+        """
 }

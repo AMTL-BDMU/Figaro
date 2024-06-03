@@ -4,7 +4,8 @@ nextflow.enable.dsl=2
 // import modules
 include {concatenate} from './modules/concatenate.nf'
 include {nanoq} from './modules/nanoq.nf'
-include {fastqc} from './modules/fastqc.nf'
+include {fastqcRaw} from './modules/fastqc.nf'
+include {fastqcTrimmed} from './modules/fastqc.nf'
 
 
 workflow {
@@ -30,7 +31,7 @@ workflow {
             
            
             concatenate(ch_sample)
-            fastqc(concatenate.out.concatFastq, 'raw')
+            fastqcRaw(concatenate.out.concatFastq)
             nanoq(concatenate.out.concatFastq)
 
 
@@ -43,7 +44,7 @@ workflow {
                         def reads = file.countFastq()
                         return [baseName, file]
                     }
-            fastqc(ch_sample, 'raw')
+            fastqcRaw(ch_sample)
             nanoq(ch_sample)
 
         } else {
@@ -51,6 +52,6 @@ workflow {
             System.exit(1)
         }
 
-        fastqc(nanoq.out.trimmedFastq, 'trimmed')
+        fastqcTrimmed(nanoq.out.trimmedFastq)
 
 }
