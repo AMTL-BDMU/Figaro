@@ -5,11 +5,7 @@ process fastqc {
 
 
         publishDir {
-            if (type == 'raw') {
-                path: "${params.outputDir}/01_fastqcRaw"
-            } else if (type == 'trimmed') {
-                path: "${params.outputDir}/02_fastqcTrimmed"
-            }
+            {type == 'raw' ? "${params.outputDir}/01_fastqcRaw" : "${params.outputDir}/02_fastqcTrimmed" },
             mode: 'copy'
             overwrite: 'true'
         }
@@ -30,3 +26,4 @@ process fastqc {
         $fastq
         """
 }
+
