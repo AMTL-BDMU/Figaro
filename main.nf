@@ -31,7 +31,8 @@ workflow {
                 .filter(file -> file.name =~ /.*\.fastq(\.gz)?$/)
                 .map{file ->
                     def baseName = file.name.replaceAll(/\.fastq(\.gz)?$/, '')
-                    return [baseName, file]
+                    def reads = file.countFastq()
+                    return [baseName, file, reads]
                 }
     } else {
         log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
