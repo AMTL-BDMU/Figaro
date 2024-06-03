@@ -28,7 +28,7 @@ workflow {
     } else if (fastqDir) {
         ch_sample = Channel
                 .fromPath(fastqDir)
-                .filter(it.name =~ /.*\.fastq(\.gz)?$/)
+                .filter(ifile -> file.name =~ /.*\.fastq(\.gz)?$/)
                 .map{file ->
                     def baseName = file.name.replaceAll(/\.fastq(\.gz)?$/, '')
                     return [baseName, file]
