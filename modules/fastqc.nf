@@ -18,9 +18,7 @@ process fastqcRaw {
 
         script:
         """
-        fastqc \
-        --outdir .
-        $fastq
+        fastqc --outdir . $fastq
         """
 }
 
@@ -45,8 +43,6 @@ process fastqcTrimmed {
 
         script:
         """
-        fastqc \
-        --outdir .
-        $fastq
+        fastqc --outdir . $fastq
         """
 }
