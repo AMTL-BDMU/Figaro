@@ -2,26 +2,31 @@
 nextflow.enable.dsl=2
 
 // import modules
-include { cat } from './modules/01-preprocess.nf'
-include { nanoq } from './modules/01-preprocess.nf'
-//include { fastqc } from './modules/01-preprocess.nf'
-//include { multiqc } from './modules/01-preprocess.nf'
-
-//include { medaka } from './modules/02-consensus.nf'
-
-//include { sierra } from './modules/03-profiling.nf'
 
 workflow {
 
-         ch_sample = Channel
-                .fromPath("${params.in_dir}/**/fastq_pass/barcode*/", type: 'dir')
-                .ifEmpty { error "Cannot find any barcode directories matching: ${params.reads}" }
-                
+	// Set channel for the fastq directories
+	nanoporeBarcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
+
+    ch_sample = Channel
+            .fromPath(nanoporeBarcodeDirs)
+            .filter(~/.*barcode[0-9]{1,4}$/)
+            .filter{ d ->
+                def count = 0
+                for (x in d.listFiles()) {
+                    if (x.isFile()) {
+                        count += x.countFastq()
+                    }
+                }
+                count > params.OntMinReadsPerBarcode
+            }
+            .ifEmpty{ error "Cannot find any barcode directories matching: ${params.inputDir}"
+            }
+
+
 
         main:
-//               ch_sample.map { samplePath -> tuple(samplePath) }
 
-                cat( ch_sample )
-                nanoq( cat.out.cat_fastq )
+                ch_sample.view()
 
 }
