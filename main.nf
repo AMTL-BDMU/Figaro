@@ -28,7 +28,6 @@ workflow {
     } else if (fastqDir) {
         ch_sample = Channel
                 .fromPath(fastqDir)
-                .filter(~/.*fastq*)
     } else {
         log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
         System.exit(1)
