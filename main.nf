@@ -30,7 +30,7 @@ workflow {
             
            
             concatenate(ch_sample)
-            fastqc(concatenate.out.concatFastq, raw)
+            fastqc(concatenate.out.concatFastq, 'raw')
             nanoq(concatenate.out.concatFastq)
 
 
@@ -43,7 +43,7 @@ workflow {
                         def reads = file.countFastq()
                         return [baseName, file]
                     }
-            fastqc(ch_sample, raw)
+            fastqc(ch_sample, 'raw')
             nanoq(ch_sample)
 
         } else {
@@ -51,6 +51,6 @@ workflow {
             System.exit(1)
         }
 
-        fastqc(nanoq.out.trimmedFastq, trimmed)
+        fastqc(nanoq.out.trimmedFastq, 'trimmed')
 
 }
