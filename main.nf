@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 // import modules
 include {concatenate} from './modules/concatenate.nf'
-include {fastqc} from './modules/fastqc.nf'
+include {nanoq} from './modules/nanoq.nf'
 
 
 workflow {
@@ -48,6 +48,6 @@ workflow {
             System.exit(1)
         }
 
-        fastqc(ch_concatFastq)
+        nanoq(ch_concatFastq)
 
 }
