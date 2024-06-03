@@ -27,8 +27,13 @@ workflow {
                 }
     } else if (fastqDir) {
         ch_sample = Channel
-                .fromPath("${params.inputDir}", type: 'dir', maxDepth: 1)
-                .map{it -> [ 'SAMPLE_1', 'single_barcode', it, 10000000 ]}
+                .fromPath(fastqDir)
+                .filter(*fastq*)
+                .map{fq ->
+                    def reads = 0
+                    reads += fq.countFastq()
+                    return [fq.baseName, fq, reads]
+                }
     } else {
         log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
         System.exit(1)
