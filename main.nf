@@ -6,6 +6,7 @@ include {concatenate} from './modules/concatenate.nf'
 include {nanoq} from './modules/nanoq.nf'
 include {fastqcRaw} from './modules/fastqc.nf'
 include {fastqcTrimmed} from './modules/fastqc.nf'
+include {minimap} from './modules/minimap.nf'
 
 
 workflow {
@@ -53,5 +54,6 @@ workflow {
         }
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
+        minimap(fastqcTrimmed.out.qualTrimmed)
 
 }
