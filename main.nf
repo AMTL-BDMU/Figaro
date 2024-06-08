@@ -57,10 +57,12 @@ workflow {
         }
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
-        minimap(nanoq.out.trimmedFastq)
+        minimap(nanoq.out.trimmedFastq, params.reference)
         ivar(minimap.out.bam)
         sortIndex(ivar.out.trimmedBam)
         medaka(sortIndex.out.bamBai)
+
+
 
 
 }
