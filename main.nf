@@ -9,7 +9,8 @@ include {fastqcTrimmed} from './modules/fastqc.nf'
 include {minimap} from './modules/minimap.nf'
 include {ivar} from './modules/ivar.nf'
 include {sortIndex} from './modules/sortIndex.nf'
-include {medaka} from './modules/medaka.nf'
+include {medakaPrelim} from './modules/medaka.nf'
+include {medakaFinal} from './modules/medaka.nf'
 
 
 workflow {
@@ -57,12 +58,15 @@ workflow {
         }
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
-        minimap(nanoq.out.trimmedFastq, params.reference)
-        ivar(minimap.out.bam)
-        sortIndex(ivar.out.trimmedBam)
-        medaka(sortIndex.out.bamBai)
+        minimapPrelim(nanoq.out.trimmedFastq, params.reference)
+        ivarPrelim(minimapPrelim.out.bam)
+        sortIndexPrelim(ivarPrelim.out.trimmedBam)
+        medakaPrelim(sortIndexPrelim.out.bamBai)
 
-
+        minimapFinal(nanoq.out.trimmedFastq, medakaPrelim.out.consensus)
+        ivarFinal(minimapFinal.out.bam)
+        sortIndexFinal(ivarFinal.out.trimmedBam)
+        medakaFinal(sortIndexFinal.out.bamBai)
 
 
 }
