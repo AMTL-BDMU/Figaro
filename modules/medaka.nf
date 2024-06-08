@@ -20,7 +20,7 @@ process medaka {
         medaka consensus \
             ${bam} \
             ${sample}.hdf \
-            --model $params.model
+            --model $params.medakaModel
 
 
         medaka stitch \
