@@ -54,6 +54,6 @@ workflow {
         }
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
-        minimap(fastqcTrimmed.out.qualTrimmed)
+        minimap(nanoq.out.qualTrimmed)
 
 }
