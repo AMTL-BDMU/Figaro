@@ -68,8 +68,9 @@ workflow {
         medakaPrelim(sortIndexPrelim.out.bamBai)
 
         minimapFinal(nanoq.out.trimmedFastq, medakaPrelim.out.consensus)
-        ivarFinal(minimapFinal.out.bam)
-        sortIndexFinal(ivarFinal.out.trimmedBam)
+        //ivarFinal(minimapFinal.out.bam)
+        //sortIndexFinal(ivarFinal.out.trimmedBam)
+        sortIndexFinal(minimapFinal.out.bam)
         medakaFinal(sortIndexFinal.out.bamBai)
 
 
