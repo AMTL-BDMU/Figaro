@@ -13,8 +13,7 @@ process sortIndex {
         tuple val(sample), path(bam)
 
         output:
-        tuple val(sample), path("*.primerTrimmed.sorted.bam*"), emit: bam
-        tuple val(sample), path("*.primerTrimmed.sorted.bam.bai*"), emit: bai
+        tuple val(sample), path("*.primerTrimmed.sorted.bam*"), path("*.primerTrimmed.sorted.bam.bai*"), emit: bamBai
 
         script:
         """
