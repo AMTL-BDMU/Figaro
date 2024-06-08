@@ -8,6 +8,7 @@ include {fastqcRaw} from './modules/fastqc.nf'
 include {fastqcTrimmed} from './modules/fastqc.nf'
 include {minimap} from './modules/minimap.nf'
 include {ivar} from './modules/ivar.nf'
+include {sortIndex} from './modules/sortIndex.nf'
 
 
 workflow {
@@ -57,5 +58,7 @@ workflow {
         fastqcTrimmed(nanoq.out.trimmedFastq)
         minimap(nanoq.out.trimmedFastq)
         ivar(minimap.out.bam)
+        sortIndex(ivar.out.trimmedBam)
+
 
 }
