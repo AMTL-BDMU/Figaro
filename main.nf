@@ -7,6 +7,7 @@ include {nanoq} from './modules/nanoq.nf'
 include {fastqcRaw} from './modules/fastqc.nf'
 include {fastqcTrimmed} from './modules/fastqc.nf'
 include {minimap} from './modules/minimap.nf'
+include {ivar} from './modules/ivar.nf'
 
 
 workflow {
