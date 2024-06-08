@@ -13,12 +13,12 @@ process minimap {
         tuple val(sample), path(fastq)
 
         output:
-        tuple val(sample), path("*.sorted.bam*"), emit: bam
+        tuple val(sample), path("*.sorted.bam"), emit: bam
 
         script:
         """
         minimap2 \
-        -a $params.reference \
-        ${fastq} | samtools sort - -o ${sample}.sorted.bam
+            -a $params.reference \
+            ${fastq} | samtools sort - -o ${sample}.sorted.bam
         """
 }

@@ -18,10 +18,10 @@ process ivar {
         script:
         """
         ivar trim \
-        -b $params.primer \
-        -p ${sample}.primerTrimmed \
-        -i ${bam} \
-        -q 1 \
-        -s 4
+            -b $params.primer \
+            -p ${sample}.primerTrimmed \
+            -i ${bam} \
+            -q 1 \
+            -s 4
         """
 }
