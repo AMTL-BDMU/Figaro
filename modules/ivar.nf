@@ -13,7 +13,7 @@ process ivar {
         tuple val(sample), path(bam)
 
         output:
-        tuple val(sample), path("*.primerTrimmed.bam*"), emit:trimmedBam
+        tuple val(sample), path("*.primerTrimmed.bam"), emit:trimmedBam
 
         script:
         """
