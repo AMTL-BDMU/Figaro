@@ -62,15 +62,15 @@ workflow {
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
         minimapPrelim(nanoq.out.trimmedFastq, params.reference)
-        //ivarPrelim(minimapPrelim.out.bam)
-        //sortIndexPrelim(ivarPrelim.out.trimmedBam)
-        sortIndexPrelim(minimapPrelim.out.bam)
+        ivarPrelim(minimapPrelim.out.bam)
+        sortIndexPrelim(ivarPrelim.out.trimmedBam)
+        //sortIndexPrelim(minimapPrelim.out.bam)
         medakaPrelim(sortIndexPrelim.out.bamBai)
 
         minimapFinal(nanoq.out.trimmedFastq, medakaPrelim.out.consensus)
-        //ivarFinal(minimapFinal.out.bam)
-        //sortIndexFinal(ivarFinal.out.trimmedBam)
-        sortIndexFinal(minimapFinal.out.bam)
+        ivarFinal(minimapFinal.out.bam)
+        sortIndexFinal(ivarFinal.out.trimmedBam)
+        //sortIndexFinal(minimapFinal.out.bam)
         medakaFinal(sortIndexFinal.out.bamBai)
 
 
