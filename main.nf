@@ -76,7 +76,7 @@ workflow {
         //sortIndexFinal(minimapFinal.out.bam)
         //medakaFinal(sortIndexFinal.out.bamBai)
 
-        medakaFinal(sortIndexPrelim.out.trimmedBam)
+        medakaFinal(sortIndexPrelim.out.bamBai)
 
         sierra(medakaPrelim.out.consensus)
         report(sierra.out.json, params.reportPDF)
