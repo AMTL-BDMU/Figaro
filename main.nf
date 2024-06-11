@@ -15,6 +15,9 @@ include {ivarFinal} from './modules/ivar.nf'
 include {sortIndexFinal} from './modules/sortIndex.nf'
 include {medakaFinal} from './modules/medaka.nf'
 
+include {sierra} from './modules/sierra.nf'
+include {report} from './modules/report.nf'
+
 
 workflow {
 
@@ -65,13 +68,18 @@ workflow {
         ivarPrelim(minimapPrelim.out.bam)
         sortIndexPrelim(ivarPrelim.out.trimmedBam)
         //sortIndexPrelim(minimapPrelim.out.bam)
-        medakaPrelim(sortIndexPrelim.out.bamBai)
+        //medakaPrelim(sortIndexPrelim.out.bamBai)
 
         //minimapFinal(nanoq.out.trimmedFastq, medakaPrelim.out.consensus)
         //ivarFinal(minimapFinal.out.bam)
         //sortIndexFinal(ivarFinal.out.trimmedBam)
         //sortIndexFinal(minimapFinal.out.bam)
         //medakaFinal(sortIndexFinal.out.bamBai)
+
+        medakaFinal(sortIndexPrelim.out.trimmedBam)
+
+        sierra(medakaPrelim.out.consensus)
+        report(sierra.out.json, params.reportPDF)
 
 
 }
