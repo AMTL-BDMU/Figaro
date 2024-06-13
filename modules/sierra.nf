@@ -1,7 +1,7 @@
 process sierra {
         container 'ufuomababatunde/sierralocal:1.4.0'
 
-        errorStrategy 'ignore'
+        //errorStrategy 'ignore'
         
         tag "Creating JSON file for $sample"
 
