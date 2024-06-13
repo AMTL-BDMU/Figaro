@@ -4,7 +4,7 @@ process ivar {
         tag "Trimming primers out of ${sample}"
 
         publishDir (
-        path: "${params.outputDir}/04_ivarTrim",
+        path: "${params.outDir}/04_ivarTrim",
         mode: 'copy',
         overwrite: 'true'
         )

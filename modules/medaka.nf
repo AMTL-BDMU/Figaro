@@ -4,7 +4,7 @@ process medakaPrelim {
         tag "${sample}"
 
         publishDir (
-        path: "${params.outputDir}/06_medakaPrelim",
+        path: "${params.outDir}/06_medakaPrelim",
         mode: 'copy',
         overwrite: 'true'
         )

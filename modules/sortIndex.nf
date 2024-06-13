@@ -4,7 +4,7 @@ process sortIndex {
         tag "Sorting and indexing ${sample}"
 
         publishDir (
-        path: "${params.outputDir}/05_sortIndex",
+        path: "${params.outDir}/05_sortIndex",
         mode: 'copy',
         overwrite: 'true'
         )

@@ -21,8 +21,8 @@ include {report} from './modules/report.nf'
 workflow {
 
     // Set channel for the fastq directories
-    barcodeDirs = file("${params.inputDir}/barcode*", type: 'dir', maxdepth: 1 )
-    fastqDir = file("${params.inputDir}/*.fastq*" , type: 'file', maxdepth: 1)
+    barcodeDirs = file("${params.inDir}/barcode*", type: 'dir', maxdepth: 1 )
+    fastqDir = file("${params.inDir}/*.fastq*" , type: 'file', maxdepth: 1)
 
     main:
         if (barcodeDirs) {
@@ -58,7 +58,7 @@ workflow {
             nanoq(ch_sample)
 
         } else {
-            log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inputDir ./raw/fastq_pass/ or --inputDir ./fastqConcatenated/"
+            log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inDir ./raw/fastq_pass/ or --inDir ./fastqConcatenated/"
             System.exit(1)
         }
 

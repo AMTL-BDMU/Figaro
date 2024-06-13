@@ -5,7 +5,7 @@ process report{
 
         
         publishDir (
-        path: "${params.outputDir}/12_reports/",
+        path: "${params.outDir}/12_reports/",
         mode: 'copy',
         overwrite: 'true'
         )

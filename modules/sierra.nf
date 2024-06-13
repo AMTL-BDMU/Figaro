@@ -6,7 +6,7 @@ process sierra {
         tag "Creating JSON file for $sample"
 
         publishDir (
-        path: "${params.outputDir}/11_sierra",
+        path: "${params.outDir}/11_sierra",
         mode: 'copy',
         overwrite: 'true'
         )

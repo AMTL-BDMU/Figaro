@@ -4,7 +4,7 @@ process minimapPrelim {
         tag "Aligning ${sample}"
 
         publishDir (
-        path: "${params.outputDir}/03_minimapPrelim",
+        path: "${params.outDir}/03_minimapPrelim",
         mode: 'copy',
         overwrite: 'true'
         )

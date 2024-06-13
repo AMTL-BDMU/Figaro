@@ -4,7 +4,7 @@ process fastqcRaw {
         tag "Check quality of ${sample}"
 
         publishDir (
-        path: "${params.outputDir}/01_fastqcRaw",
+        path: "${params.outDir}/01_fastqcRaw",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -29,7 +29,7 @@ process fastqcTrimmed {
         tag "Check quality of ${sample}"
 
         publishDir (
-        path: "${params.outputDir}/02_fastqcTrimmed",
+        path: "${params.outDir}/02_fastqcTrimmed",
         mode: 'copy',
         overwrite: 'true'
         )
