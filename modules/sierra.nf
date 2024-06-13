@@ -1,5 +1,5 @@
 process sierra {
-        container 'ufuomababatunde/sierralocal:1.3.0'
+        container 'ufuomababatunde/sierralocal:1.4.0'
 
         errorStrategy 'ignore'
         
