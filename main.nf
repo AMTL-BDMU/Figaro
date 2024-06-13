@@ -79,7 +79,7 @@ workflow {
         medakaFinal(sortIndexPrelim.out.bamBai)
 
         sierra(medakaFinal.out.consensus)
-        report(sierra.out.json, params.reportPDF)
+        //report(sierra.out.json, params.reportPDF)
 
 
 }
