@@ -55,7 +55,7 @@ process medakaFinal {
         """
         medaka_consensus \
             -t $params.thread \
-            -m $params.ontBasecallModel \
+            -m $params.medakaModel \
             -i $fastq \
             -d $fasta \
             -o medaka_dir
