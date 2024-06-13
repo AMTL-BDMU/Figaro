@@ -39,7 +39,7 @@ process medakaFinal {
 
 
         publishDir (
-        path: "${params.outDir}/05_medaka",
+        path: "${params.outDir}/07_medaka",
         mode: 'copy',
         overwrite: 'true'
         )
