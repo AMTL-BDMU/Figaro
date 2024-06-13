@@ -26,7 +26,7 @@ process sierra {
             sierralocal $fasta \
                 -o tmp.json \
                 -xml ${params.sierraXML}
-            python3 checkJSON.py --json tmp.json --sample ${sample}
+            checkJSON.py --json tmp.json --sample ${sample}
         else
             echo "Skipping since there is no consensus sequence"
         fi
@@ -34,7 +34,7 @@ process sierra {
 
         if [ -s consensus_${sample}.json ]; then
         # If there is alignment.
-            python3 extractResistanceScore.py \
+            extractResistanceScore.py \
                 --json consensus_${sample}.json \
                 --csv ${sample}.drugResistanceScore.csv \
                 --sample ${sample}
