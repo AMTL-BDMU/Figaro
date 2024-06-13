@@ -5,7 +5,7 @@ process racon {
 
 
         publishDir (
-        path: "${params.outDir}/04_racon",
+        path: "${params.outDir}/07_racon",
         mode: 'copy',
         overwrite: 'true'
         )

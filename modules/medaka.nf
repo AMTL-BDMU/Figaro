@@ -27,6 +27,8 @@ process medakaPrelim {
             ${sample}.hdf \
             $params.reference \
             ${sample}.consensus.fasta
+
+        sed -i "/^>/ s/.*/>${sample}/" ${sample}.consensus.fasta
         """
 }
 
@@ -39,7 +41,7 @@ process medakaFinal {
 
 
         publishDir (
-        path: "${params.outDir}/07_medaka",
+        path: "${params.outDir}/08_medaka",
         mode: 'copy',
         overwrite: 'true'
         )
