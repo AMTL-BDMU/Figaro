@@ -7,12 +7,11 @@ include {nanoq} from './modules/nanoq.nf'
 include {fastqcRaw} from './modules/fastqc.nf'
 include {fastqcTrimmed} from './modules/fastqc.nf'
 include {minimapPrelim} from './modules/minimap.nf'
-include {ivarPrelim} from './modules/ivar.nf'
-include {sortIndexPrelim} from './modules/sortIndex.nf'
+include {ivar} from './modules/ivar.nf'
+include {sortIndex} from './modules/sortIndex.nf'
 include {medakaPrelim} from './modules/medaka.nf'
 include {minimapFinal} from './modules/minimap.nf'
-include {ivarFinal} from './modules/ivar.nf'
-include {sortIndexFinal} from './modules/sortIndex.nf'
+include {racon} from './modules/racon.nf'
 include {medakaFinal} from './modules/medaka.nf'
 
 include {sierra} from './modules/sierra.nf'
@@ -65,20 +64,14 @@ workflow {
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
         minimapPrelim(nanoq.out.trimmedFastq, params.reference)
-        ivarPrelim(minimapPrelim.out.bam)
-        sortIndexPrelim(ivarPrelim.out.trimmedBam)
-        //sortIndexPrelim(minimapPrelim.out.bam)
-        //medakaPrelim(sortIndexPrelim.out.bamBai)
+        ivar(minimapPrelim.out.bam)
+        sortIndex(ivar.out.trimmedBam)
+        medakaPrelim(sortIndex.out.bamBai)
+        minimapFinal(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq))
+        racon(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq).join(minimapFinal.out.sam))
+        medakaFinal(racon.out.raconFasta.join(nanoq.out.trimmedFastq))
 
-        //minimapFinal(nanoq.out.trimmedFastq, medakaPrelim.out.consensus)
-        //ivarFinal(minimapFinal.out.bam)
-        //sortIndexFinal(ivarFinal.out.trimmedBam)
-        //sortIndexFinal(minimapFinal.out.bam)
-        //medakaFinal(sortIndexFinal.out.bamBai)
-
-        medakaFinal(sortIndexPrelim.out.bamBai)
-
-        sierra(medakaFinal.out.consensus)
+        //sierra(medakaFinal.out.consensus)
         //report(sierra.out.json, params.reportPDF)
 
 

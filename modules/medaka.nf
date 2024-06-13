@@ -13,7 +13,7 @@ process medakaPrelim {
         tuple val(sample), path(bam), path(bai)
 
         output:
-        path("*.consensus.fasta"), emit:consensus
+        tuple val(sample), path("*.consensus.fasta"), emit:consensus
 
         script:
         """
@@ -31,34 +31,35 @@ process medakaPrelim {
 }
 
 
-process medakaFinal {
-        container 'ontresearch/medaka:sha3486abaab0d3b90351617eb8622acf2028edb154'
 
-        tag "${sample}"
+process medakaFinal {
+        container 'ufuomababatunde/medaka:v1.11.3'
+
+        tag "Creating consensus: ${sample}"
+
 
         publishDir (
-        path: "${params.outputDir}/10_medakaFinal",
+        path: "${params.outDir}/05_medaka",
         mode: 'copy',
         overwrite: 'true'
         )
 
         input:
-        tuple val(sample), path(bam), path(bai)
+        tuple val(sample), path(fasta), path(fastq)
 
         output:
-        tuple val(sample), path("*.consensus.fasta"), emit:consensus
+        tuple val(sample), path("*.consensus.fasta"), emit: consensus
+
 
         script:
         """
-        medaka consensus \
-            ${bam} \
-            ${sample}.hdf \
-            --model $params.medakaModel
+        medaka_consensus \
+            -t $params.thread \
+            -m $params.ontBasecallModel \
+            -i $fastq \
+            -d $fasta \
+            -o medaka_dir
 
-
-        medaka stitch \
-            ${sample}.hdf \
-            $params.reference \
-            ${sample}.consensus.fasta
+        mv medaka_dir/consensus.fasta ${sample}.consensus.fasta
         """
 }

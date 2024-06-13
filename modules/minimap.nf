@@ -24,28 +24,33 @@ process minimapPrelim {
         """
 }
 
+
 process minimapFinal {
-        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+        container 'staphb/minimap2:2.28'
 
-        tag "Aligning ${sample}"
+        tag "Assembling ${sample}"
 
-        publishDir (
-        path: "${params.outputDir}/07_minimapFinal",
-        mode: 'copy',
-        overwrite: 'true'
-        )
+
+        // publishDir (
+        // path: "${params.outDir}/04_minimap2",
+        // mode: 'copy',
+        // overwrite: 'true'
+        // )
 
         input:
-        tuple val(sample), path(fastq)
-        path(reference)
+        tuple val(sample), path(fasta), path(fastq)
 
         output:
-        tuple val(sample), path("*.sorted.bam"), emit: bam
+        tuple val(sample), path("*sam"), emit: sam
+
 
         script:
         """
         minimap2 \
-            -a ${reference} \
-            ${fastq} | samtools sort - -o ${sample}.sorted.bam
+            -a \
+            -t $params.thread \
+            $fasta \
+            $fastq \
+            > ${sample}.sam
         """
 }
