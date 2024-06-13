@@ -71,7 +71,7 @@ workflow {
         racon(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq).join(minimapFinal.out.sam))
         medakaFinal(racon.out.raconFasta.join(nanoq.out.trimmedFastq))
 
-        //sierra(medakaFinal.out.consensus)
+        sierra(medakaFinal.out.consensus)
         //report(sierra.out.json, params.reportPDF)
 
 
