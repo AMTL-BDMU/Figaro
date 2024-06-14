@@ -62,17 +62,26 @@ workflow {
             System.exit(1)
         }
 
+        // fastqcTrimmed(nanoq.out.trimmedFastq)
+        // minimapPrelim(nanoq.out.trimmedFastq, params.reference)
+        // ivar(minimapPrelim.out.bam)
+        // sortIndex(ivar.out.trimmedBam)
+        // medakaPrelim(sortIndex.out.bamBai)
+        // minimapFinal(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq))
+        // racon(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq).join(minimapFinal.out.sam))
+        // medakaFinal(racon.out.raconFasta.join(nanoq.out.trimmedFastq))
+
+        //sierra(medakaFinal.out.consensus)
+        //report(sierra.out.json, params.reportPDF)
+
+
         fastqcTrimmed(nanoq.out.trimmedFastq)
         minimapPrelim(nanoq.out.trimmedFastq, params.reference)
-        ivar(minimapPrelim.out.bam)
-        sortIndex(ivar.out.trimmedBam)
+        sortIndex(minimapPrelim.out.bam)
         medakaPrelim(sortIndex.out.bamBai)
         minimapFinal(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq))
         racon(medakaPrelim.out.consensus.join(nanoq.out.trimmedFastq).join(minimapFinal.out.sam))
         medakaFinal(racon.out.raconFasta.join(nanoq.out.trimmedFastq))
-
-        //sierra(medakaFinal.out.consensus)
-        //report(sierra.out.json, params.reportPDF)
 
 
 }
