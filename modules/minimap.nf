@@ -19,6 +19,8 @@ process minimapPrelim {
         script:
         """
         minimap2 \
+            -O 10 \
+            -E 8 \
             -a ${reference} \
             ${fastq} | samtools sort - -o ${sample}.sorted.bam
         """
@@ -47,6 +49,8 @@ process minimapFinal {
         script:
         """
         minimap2 \
+            -O 10 \
+            -E 8 \
             -a \
             -t $params.thread \
             $fasta \
