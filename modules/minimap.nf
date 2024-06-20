@@ -19,8 +19,8 @@ process minimapPrelim {
         script:
         """
         minimap2 \
-            -O 10 \
-            -E 8 \
+            -O $params.minimapOpenPenalty \
+            -E $params.minimapExtenPenalty \
             -a ${reference} \
             ${fastq} | samtools sort - -o ${sample}.sorted.bam
         """
@@ -49,8 +49,8 @@ process minimapFinal {
         script:
         """
         minimap2 \
-            -O 10 \
-            -E 8 \
+            -O $params.minimapOpenPenalty \
+            -E $params.minimapExtenPenalty \
             -a \
             -t $params.thread \
             $fasta \
