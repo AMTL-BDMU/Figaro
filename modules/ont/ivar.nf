@@ -27,12 +27,13 @@ process trimPrimer {
 
         script:
         """
-        ivar trim \
-            -i ${bam} \
-            -b $params.primer \
-            -p ${sample}.primerTrimmed \
-            -q 1 \
-            -s 4 > ${sample}.ivar.log
+        ivar trim \\
+            -i ${bam} \\
+            -b $params.primer \\
+            -p ${sample}.primerTrimmed \\
+            -q 1 \\
+            -s 4 \\
+            > ${sample}.ivar.log
 
         """
 }
