@@ -4,7 +4,7 @@ process fastqcRaw {
         tag "Check quality of ${sample}"
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
