@@ -17,7 +17,7 @@ include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
 
 // import subworkflow
-include {stage1} from '../subworkflows/interations.nf'
+include {stage1} from '../subworkflows/iterations.nf'
 
 
 workflow ontAmplicon {
