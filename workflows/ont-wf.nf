@@ -72,7 +72,7 @@ workflow ontAmplicon {
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
-        racon(medaka.out.consensus.join(nanoq.out.trimmedFastq).join(minimap.out.sam))
+        racon(medaka.out.consensus.join(nanoq.out.trimmedFastq).join(minimap2.out.sam))
 
 
 
