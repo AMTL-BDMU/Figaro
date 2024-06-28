@@ -28,6 +28,5 @@ process medaka {
             $params.reference \\
             ${sample}.consensus.fasta
 
-        sed -i "/^>/ s/.*/>${sample}/" ${sample}.consensus.fasta
         """
 }
