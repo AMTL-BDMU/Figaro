@@ -39,10 +39,11 @@ workflow stage1 {
 workflow stage2 {
     take:
         ch_trimmedFastq
-        file consensus
+        ch_consensus
 
     main:
-        minimap2(ch_trimmedFastq, consensus)
+
+        minimap2(ch_trimmedFastq.join(ch_consensus))
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
