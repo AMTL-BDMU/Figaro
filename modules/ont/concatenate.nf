@@ -3,7 +3,7 @@ process concatenate {
 
 
         publishDir (
-        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
