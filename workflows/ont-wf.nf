@@ -18,6 +18,7 @@ include {medaka} from '../modules/ont/medaka.nf'
 
 // import subworkflow
 include {stage1} from '../subworkflows/iterations.nf'
+include {stage2} from '../subworkflows/iterations.nf'
 
 
 workflow ontAmplicon {
