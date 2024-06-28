@@ -4,7 +4,7 @@ process medaka {
         tag "${sample}"
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )

@@ -5,14 +5,14 @@ process nanoq {
 
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         pattern: "*.trimmed.fastq.gz",
         mode: 'copy',
         overwrite: 'true'
         )
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}Report",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}Report",
         pattern: "*.report.json",
         mode: 'copy',
         overwrite: 'true'

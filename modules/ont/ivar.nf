@@ -4,14 +4,14 @@ process trimPrimer {
         tag "Trimming primers out of ${sample}"
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         pattern: "*.primerTrimmed.bam",
         mode: 'copy',
         overwrite: 'true'
         )
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         pattern: "*ivar.log",
         mode: 'copy',
         overwrite: 'true'

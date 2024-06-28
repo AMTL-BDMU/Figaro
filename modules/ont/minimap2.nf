@@ -5,7 +5,7 @@ process minimap2 {
 
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -39,7 +39,7 @@ process minimap2Iterate {
 
 
         publishDir (
-        path: "${params.outDir}/${workflow.name}/${name}",
+        path: "${params.outdir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
