@@ -30,4 +30,25 @@ workflow stage1 {
         trimPrimer(sortIndexMinimap.out.bamBai)
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
+
+    emit:
+        consensus           =           medaka.out.consensus
+}
+
+
+workflow stage2 {
+    take:
+        ch_trimmedFastq
+        file consensus
+
+    main:
+        minimap2(ch_trimmedFastq, ${consensus})
+        sam2bam(minimap2.out.sam)
+        sortIndexMinimap(sam2bam.out.bam)
+        trimPrimer(sortIndexMinimap.out.bamBai)
+        sortIndexIvar(trimPrimer.out.trimmedBam)
+        medaka(sortIndexIvar.out.bamBai)
+
+    emit:
+        consensus           =           medaka.out.consensus
 }

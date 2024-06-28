@@ -64,4 +64,5 @@ workflow ontAmplicon {
         }
 
         stage1(nanoq.out.trimmedFastq)
+        stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
 }
