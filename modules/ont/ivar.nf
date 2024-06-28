@@ -23,7 +23,7 @@ process trimPrimer {
 
         output:
         tuple val(sample), path("*.primerTrimmed.bam"), emit:trimmedBam
-        tuple val(sample), path("*ivar.log"), emit(ivarLog)
+        tuple val(sample), path("*ivar.log"), emit:ivarLog
 
         script:
         """
