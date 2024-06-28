@@ -32,6 +32,6 @@ workflow {
         }
 
         else {
-            println "pick one"
+            
         }
 }
