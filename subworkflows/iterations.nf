@@ -16,6 +16,8 @@ include {trimPrimer} from '../modules/ont/ivar.nf'
 include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
 
+include {minimap2Iterate} from '../modules/ont/minimap2.nf'
+
 
 
 
@@ -43,7 +45,7 @@ workflow stage2 {
 
     main:
 
-        minimap2(ch_trimmedFastq.join(ch_consensus))
+        minimap2Iterate(ch_trimmedFastq.join(ch_consensus))
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
