@@ -3,7 +3,7 @@ process concatenate {
 
 
         publishDir (
-        path: "${params.outDir}/01_concatenated",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )

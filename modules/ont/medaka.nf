@@ -4,7 +4,7 @@ process medaka {
         tag "${sample}"
 
         publishDir (
-        path: "${params.outDir}/06_medaka",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )

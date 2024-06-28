@@ -5,7 +5,7 @@ process racon {
 
 
         publishDir (
-        path: "${params.outDir}/07_racon",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )

@@ -4,7 +4,7 @@ process sam2bam {
         tag "Converting sam to bam: ${sample}"
 
         publishDir (
-        path: "${params.outDir}/04_sam2bam",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -30,7 +30,7 @@ process sortIndexMinimap {
         tag "Sorting and indexing ${sample}"
 
         publishDir (
-        path: "${params.outDir}/04_sortIndex",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -59,7 +59,7 @@ process sortIndexIvar {
         tag "Sorting and indexing ${sample}"
 
         publishDir (
-        path: "${params.outDir}/04_sortIndex",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )

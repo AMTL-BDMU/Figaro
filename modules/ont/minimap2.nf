@@ -5,7 +5,7 @@ process minimap2 {
 
 
         publishDir (
-        path: "${params.outDir}/03_minimap2",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -39,7 +39,7 @@ process minimap2Iterate {
 
 
         publishDir (
-        path: "${params.outDir}/03_minimap2",
+        path: "${params.outDir}/${workflow.name}/${name}",
         mode: 'copy',
         overwrite: 'true'
         )

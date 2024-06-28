@@ -4,14 +4,14 @@ process trimPrimer {
         tag "Trimming primers out of ${sample}"
 
         publishDir (
-        path: "${params.outDir}/05_ivarTrim",
+        path: "${params.outDir}/${workflow.name}/${name}",
         pattern: "*.primerTrimmed.bam",
         mode: 'copy',
         overwrite: 'true'
         )
 
         publishDir (
-        path: "${params.outDir}/05_ivarLog",
+        path: "${params.outDir}/${workflow.name}/${name}",
         pattern: "*ivar.log",
         mode: 'copy',
         overwrite: 'true'
