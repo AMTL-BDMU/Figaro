@@ -11,7 +11,8 @@ process minimap2 {
         )
 
         input:
-        tuple val(sample), path(fasta), path(fastq)
+        tuple val(sample), path(fastq)
+        path(reference)
 
         output:
         tuple val(sample), path("*sam"), emit: sam
@@ -24,7 +25,7 @@ process minimap2 {
             -E $params.minimapExtenPenalty \
             -a \
             -t $params.thread \
-            $fasta \
+            $reference \
             $fastq \
             > ${sample}.sam
         """
