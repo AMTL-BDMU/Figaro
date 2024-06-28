@@ -28,9 +28,9 @@ process trimPrimer {
         script:
         """
         ivar trim \
+            -i ${bam} \
             -b $params.primer \
             -p ${sample}.primerTrimmed \
-            -i ${bam} \
             -q 1 \
             -s 4 > ${sample}.ivar.log
 
