@@ -25,7 +25,7 @@ workflow stage1 {
 
     main:
         ch_trimmedFastq.flatten().view()
-        // minimap2(ch_trimmedFastq.flatten(), params.reference)
+        minimap2(ch_trimmedFastq.flatten(), params.reference)
         // sam2bam(minimap2.out.sam)
         // sortIndexMinimap(sam2bam.out.bam)
         // trimPrimer(sortIndexMinimap.out.bamBai)
