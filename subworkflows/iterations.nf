@@ -42,7 +42,7 @@ workflow stage2 {
         file consensus
 
     main:
-        minimap2(ch_trimmedFastq, ${consensus})
+        minimap2(ch_trimmedFastq, consensus)
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
