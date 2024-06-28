@@ -69,10 +69,10 @@ workflow ontAmplicon {
         minimap2(nanoq.out.trimmedFastq, params.reference)
         sam2bam(minimap2.out.sam)
         sortedBamMinimap = sortIndex(sam2bam.out.bam)
-        trimPrimer(sortedBamMinimap.out.bamBai)
+        trimPrimer(sortedBamMinimap)
 
         sortedBamIvar = sortIndex(trimPrimer.out.trimmedBam)
-        medaka(sortedBamIvar.out.bamBai)
+        medaka(sortedBamIvar)
         // racon
 
 
