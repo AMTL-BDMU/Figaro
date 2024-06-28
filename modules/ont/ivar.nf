@@ -32,7 +32,7 @@ process trimPrimer {
             -p ${sample}.primerTrimmed \
             -i ${bam} \
             -q 1 \
-            -s 4 > trim.log
+            -s 4
 
         """
 }

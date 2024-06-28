@@ -3,6 +3,13 @@ process sam2bam {
 
         tag "Converting sam to bam: ${sample}"
 
+        publishDir (
+        path: "${params.outDir}/04_sam2bam",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
         input:
         tuple val(sample), path(sam)
 
