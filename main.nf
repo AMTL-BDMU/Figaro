@@ -23,15 +23,15 @@ if (params.help) {
 
 
 // import subworkflows
-include {ont-amplicon} from './workflows/ont-wf.nf'
+include {ontAmplicon} from './workflows/ont-wf.nf'
 
 workflow {
     main:
         if (params.ont-amplicon) {
-            ont-amplicon()
+            ontAmplicon()
         }
 
         else {
-            
+            println "pick one"
         }
 }
