@@ -17,15 +17,15 @@ process medakaPrelim {
 
         script:
         """
-        medaka consensus \
-            ${bam} \
-            ${sample}.hdf \
+        medaka consensus \\
+            ${bam} \\
+            ${sample}.hdf \\
             --model $params.medakaModel
 
 
-        medaka stitch \
-            ${sample}.hdf \
-            $params.reference \
+        medaka stitch \\
+            ${sample}.hdf \\
+            $params.reference \\
             ${sample}.consensus.fasta
 
         sed -i "/^>/ s/.*/>${sample}/" ${sample}.consensus.fasta

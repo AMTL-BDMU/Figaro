@@ -19,15 +19,15 @@ process racon {
 
         script:
         """
-        racon \
-            --match $params.raconMatchScore \
-            --mismatch $params.raconMismatchScore \
-            --gap $params.raconGapPenalty \
-            --window-length $params.raconWindowLen \
-            --threads $params.thread \
-            $fastq \
-            $sam \
-            $fasta \
+        racon \\
+            --match $params.raconMatchScore \\
+            --mismatch $params.raconMismatchScore \\
+            --gap $params.raconGapPenalty \\
+            --window-length $params.raconWindowLen \\
+            --threads $params.thread \\
+            $fastq \\
+            $sam \\
+            $fasta \\
             > ${sample}.racon.fasta
         """
 }

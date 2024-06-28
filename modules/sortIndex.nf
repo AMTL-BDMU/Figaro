@@ -17,8 +17,8 @@ process sortIndex {
 
         script:
         """
-        samtools sort \
-            ${bam} \
+        samtools sort \\
+            ${bam} \\
             -o ${sample}.primerTrimmed.sorted.bam
 
         samtools index ${sample}.primerTrimmed.sorted.bam

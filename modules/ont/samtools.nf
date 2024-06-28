@@ -18,7 +18,7 @@ process sam2bam {
 
         script:
         """
-        samtools view \
+        samtools view \\
             -bS ${sam} > ${sample}.bam
         """
 }
@@ -43,8 +43,8 @@ process sortIndex {
 
         script:
         """
-        samtools sort \
-            ${bam} \
+        samtools sort \\
+            ${bam} \\
             -o ${sample}.sorted.bam
 
         samtools index ${sample}.sorted.bam

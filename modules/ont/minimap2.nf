@@ -20,13 +20,13 @@ process minimap2 {
 
         script:
         """
-        minimap2 \
-            -O $params.minimapOpenPenalty \
-            -E $params.minimapExtenPenalty \
-            -a \
-            -t $params.thread \
-            $reference \
-            $fastq \
+        minimap2 \\
+            -O $params.minimapOpenPenalty \\
+            -E $params.minimapExtenPenalty \\
+            -a \\
+            -t $params.thread \\
+            $reference \\
+            $fastq \\
             > ${sample}.sam
         """
 }
