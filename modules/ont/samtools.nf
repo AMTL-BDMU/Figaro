@@ -24,7 +24,36 @@ process sam2bam {
 }
 
 
-process sortIndex {
+process sortIndexMinimap {
+        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+
+        tag "Sorting and indexing ${sample}"
+
+        publishDir (
+        path: "${params.outDir}/04_sortIndex",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+        input:
+        tuple val(sample), path(bam)
+
+        output:
+        tuple val(sample), path("*.sorted.bam"), path("*.sorted.bam.bai"), emit: bamBai
+
+        script:
+        """
+        samtools sort \\
+            ${bam} \\
+            -o ${sample}.sorted.bam
+
+        samtools index ${sample}.sorted.bam
+        """
+}
+
+
+
+process sortIndexIvar {
         container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
 
         tag "Sorting and indexing ${sample}"
