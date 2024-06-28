@@ -27,7 +27,7 @@ include {ontAmplicon} from './workflows/ont-wf.nf'
 
 workflow {
     main:
-        if (params.ont-amplicon) {
+        if (params.ontAmplicon) {
             ontAmplicon()
         }
 
