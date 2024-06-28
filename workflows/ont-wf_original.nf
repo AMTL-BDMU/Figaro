@@ -16,8 +16,7 @@ include {trimPrimer} from '../modules/ont/ivar.nf'
 include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
 
-// import subworkflow
-include {stage1} from '../subworkflows/interations.nf'
+
 
 
 workflow ontAmplicon {
@@ -63,11 +62,10 @@ workflow ontAmplicon {
 
         fastqcTrimmed(nanoq.out.trimmedFastq)
 
-        stage1(nanoq.out.trimmedFastq)
-        // minimap2(nanoq.out.trimmedFastq, params.reference)
-        // sam2bam(minimap2.out.sam)
-        // sortIndexMinimap(sam2bam.out.bam)
-        // trimPrimer(sortIndexMinimap.out.bamBai)
-        // sortIndexIvar(trimPrimer.out.trimmedBam)
-        // medaka(sortIndexIvar.out.bamBai)
+        minimap2(nanoq.out.trimmedFastq, params.reference)
+        sam2bam(minimap2.out.sam)
+        sortIndexMinimap(sam2bam.out.bam)
+        trimPrimer(sortIndexMinimap.out.bamBai)
+        sortIndexIvar(trimPrimer.out.trimmedBam)
+        medaka(sortIndexIvar.out.bamBai)
 }
