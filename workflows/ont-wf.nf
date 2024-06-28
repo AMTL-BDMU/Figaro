@@ -42,6 +42,7 @@ workflow ontAmplicon {
             concatenate(ch_sample)
             fastqcRaw(concatenate.out.concatFastq)
             nanoq(concatenate.out.concatFastq)
+            fastqcTrimmed(nanoq.out.trimmedFastq)
 
 
         } else if (fastqDir) {
@@ -55,23 +56,12 @@ workflow ontAmplicon {
                     }
             fastqcRaw(ch_sample)
             nanoq(ch_sample)
+            fastqcTrimmed(nanoq.out.trimmedFastq)
 
         } else {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inDir ./raw/fastq_pass/ or --inDir ./fastqConcatenated/"
             System.exit(1)
         }
 
-        fastqcTrimmed(nanoq.out.trimmedFastq)
-
-        // tupleListChannel = nanoq.out.trimmedFastq.collect()
-        
-        // nanoq.out.trimmedFastq.view()
-        // tupleListChannel.view()
         stage1(nanoq.out.trimmedFastq)
-        // minimap2(nanoq.out.trimmedFastq, params.reference)
-        // sam2bam(minimap2.out.sam)
-        // sortIndexMinimap(sam2bam.out.bam)
-        // trimPrimer(sortIndexMinimap.out.bamBai)
-        // sortIndexIvar(trimPrimer.out.trimmedBam)
-        // medaka(sortIndexIvar.out.bamBai)
 }

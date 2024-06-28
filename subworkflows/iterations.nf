@@ -24,11 +24,10 @@ workflow stage1 {
         ch_trimmedFastq
 
     main:
-        ch_trimmedFastq.view()
-        // minimap2(ch_trimmedFastq.flatten(), params.reference)
-        // sam2bam(minimap2.out.sam)
-        // sortIndexMinimap(sam2bam.out.bam)
-        // trimPrimer(sortIndexMinimap.out.bamBai)
-        // sortIndexIvar(trimPrimer.out.trimmedBam)
-        // medaka(sortIndexIvar.out.bamBai)
+        minimap2(ch_trimmedFastq, params.reference)
+        sam2bam(minimap2.out.sam)
+        sortIndexMinimap(sam2bam.out.bam)
+        trimPrimer(sortIndexMinimap.out.bamBai)
+        sortIndexIvar(trimPrimer.out.trimmedBam)
+        medaka(sortIndexIvar.out.bamBai)
 }
