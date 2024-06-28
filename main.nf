@@ -20,3 +20,18 @@ if (params.help) {
     println helpMessage
     exit 0
 }
+
+
+// import subworkflows
+include {ont-amplicon} from './workflows/ont-wf.nf'
+
+workflow {
+    main:
+        if (params.ont-amplicon) {
+            ont-amplicon()
+        }
+
+        else {
+            println "pick one"
+        }
+}

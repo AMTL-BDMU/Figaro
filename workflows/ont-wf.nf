@@ -23,7 +23,7 @@ include {sortIndex} from '../modules/ont/samtools.nf'
 
 
 
-workflow {
+workflow ont-amplicon {
     // Set channel for the fastq directories
     barcodeDirs = file("${params.inDir}/barcode*", type: 'dir', maxdepth: 1 )
     fastqDir = file("${params.inDir}/*.fastq*" , type: 'file', maxdepth: 1)
