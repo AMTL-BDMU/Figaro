@@ -19,6 +19,7 @@ include {medaka} from '../modules/ont/medaka.nf'
 // import subworkflow
 include {stage1} from '../subworkflows/iterations.nf'
 include {stage2} from '../subworkflows/iterations.nf'
+include {stage3} from '../subworkflows/iterations.nf'
 
 
 workflow ontAmplicon {
@@ -66,4 +67,5 @@ workflow ontAmplicon {
 
         stage1(nanoq.out.trimmedFastq)
         stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
+        stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
 }

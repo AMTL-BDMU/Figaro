@@ -55,3 +55,22 @@ workflow stage2 {
     emit:
         consensus           =           medaka.out.consensus
 }
+
+
+workflow stage3 {
+    take:
+        ch_trimmedFastq
+        ch_consensus
+
+    main:
+
+        minimap2Iterate(ch_trimmedFastq.join(ch_consensus))
+        sam2bam(minimap2Iterate.out.sam)
+        sortIndexMinimap(sam2bam.out.bam)
+        trimPrimer(sortIndexMinimap.out.bamBai)
+        sortIndexIvar(trimPrimer.out.trimmedBam)
+        medaka(sortIndexIvar.out.bamBai)
+
+    emit:
+        consensus           =           medaka.out.consensus
+}
