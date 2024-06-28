@@ -13,11 +13,10 @@ include {minimap2} from '../modules/ont/minimap2.nf'
 include {sam2bam} from '../modules/ont/samtools.nf'
 include {sortIndexMinimap} from '../modules/ont/samtools.nf'
 include {trimPrimer} from '../modules/ont/ivar.nf'
-
 include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
 
-// include {racon} from '../modules/ont/racon.nf'
+include {racon} from '../modules/ont/racon.nf'
 
 
 
@@ -70,10 +69,10 @@ workflow ontAmplicon {
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
-
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
-        // racon
+
+        racon(medaka.out.consensus.join(nanoq.out.trimmedFastq).join(minimap.out.sam))
 
 
 
