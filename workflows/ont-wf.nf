@@ -66,7 +66,7 @@ workflow ontAmplicon {
         tupleListChannel = nanoq.out.trimmedFastq.collect()
         
         tupleListChannel.view()
-        // stage1(tupleListChannel)
+        stage1(tupleListChannel)
         // minimap2(nanoq.out.trimmedFastq, params.reference)
         // sam2bam(minimap2.out.sam)
         // sortIndexMinimap(sam2bam.out.bam)
