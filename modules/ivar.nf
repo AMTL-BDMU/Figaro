@@ -25,3 +25,8 @@ process ivar {
             -s 4
         """
 }
+
+
+ivar trim -i barcode35.sorted.bam -b primerpair_pol.bed -p test -q 1 -s 4 > log.file
+
+grep "Found" -A 10000 log.file | grep "primers in BED file" -A 100000 > ivar.log
