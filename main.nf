@@ -5,10 +5,7 @@ nextflow.enable.dsl=2
 // Define a help message
 def helpMessage = """
 Usage:
-    nextflow run Figaro \
-        --ont-amplicon \
-        --inDir reads/ \
-        --outDir results
+    nextflow run Figaro --ont-amplicon --inDir reads/ --outDir results
 
 Options:
     --help                  Show this help message and exit
