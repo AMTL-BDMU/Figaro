@@ -46,7 +46,7 @@ workflow stage2 {
     main:
 
         minimap2Iterate(ch_trimmedFastq.join(ch_consensus))
-        sam2bam(minimap2.out.sam)
+        sam2bam(minimap2Iterate.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
         sortIndexIvar(trimPrimer.out.trimmedBam)
