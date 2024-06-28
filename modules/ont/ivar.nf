@@ -10,12 +10,12 @@ process trimPrimer {
         overwrite: 'true'
         )
 
-        publishDir (
-        path: "${params.outDir}/05_ivarLog",
-        pattern: "*ivar.log",
-        mode: 'copy',
-        overwrite: 'true'
-        )
+        // publishDir (
+        // path: "${params.outDir}/05_ivarLog",
+        // pattern: "*ivar.log",
+        // mode: 'copy',
+        // overwrite: 'true'
+        // )
 
 
         input:
@@ -23,7 +23,7 @@ process trimPrimer {
 
         output:
         tuple val(sample), path("*.primerTrimmed.bam"), emit:trimmedBam
-        tuple val(sample), path("*ivar.log"), emit:ivarLog
+        // tuple val(sample), path("*ivar.log"), emit:ivarLog
 
         script:
         """
@@ -32,8 +32,7 @@ process trimPrimer {
             -p ${sample}.primerTrimmed \
             -i ${bam} \
             -q 1 \
-            -s 4 > trim.log
+            -s 4
 
-        grep "Found" -A 10000 trim.log | grep "primers in BED file" -A 100000 > ${sample}.ivar.log
         """
 }
