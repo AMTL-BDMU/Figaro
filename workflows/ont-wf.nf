@@ -1,6 +1,13 @@
 // enable dsl2
 nextflow.enable.dsl=2
 
+// import modules
+include {concatenate} from '../modules/ont/concatenate.nf'
+include {nanoq} from '../modules/ont/nanoq.nf'
+include {fastqcRaw} from '../modules/ont/fastqc.nf'
+include {fastqcTrimmed} from '../modules/ont/fastqc.nf'
+
+
 // import subworkflow
 include {stage1} from '../subworkflows/iterations.nf'
 include {stage2} from '../subworkflows/iterations.nf'
