@@ -8,6 +8,8 @@ include {fastqcRaw} from '../modules/ont/fastqc.nf'
 include {fastqcTrimmed} from '../modules/ont/fastqc.nf'
 
 include {sierra} from '../modules/report/sierra.nf'
+include {pdfReport} from '../modules/report/pdfReport.nf'
+
 
 
 // import subworkflow
@@ -64,4 +66,5 @@ workflow ontAmplicon {
         stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
         stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
         sierra(stage3.out.consensus)
+        pdfReport(sierra.out.json, params.markdownFile)
 }
