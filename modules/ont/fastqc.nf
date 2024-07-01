@@ -4,7 +4,7 @@ process fastqcRaw {
         tag "Check quality of ${sample}"
 
         publishDir (
-        path: "${params.outDir}/01_fastqcRaw",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -18,7 +18,7 @@ process fastqcRaw {
 
         script:
         """
-        fastqc --outdir . $fastq
+        fastqc --outDir . $fastq
         """
 }
 
@@ -29,7 +29,7 @@ process fastqcTrimmed {
         tag "Check quality of ${sample}"
 
         publishDir (
-        path: "${params.outDir}/02_fastqcTrimmed",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -43,6 +43,6 @@ process fastqcTrimmed {
 
         script:
         """
-        fastqc --outdir . $fastq
+        fastqc --outDir . $fastq
         """
 }

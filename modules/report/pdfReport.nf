@@ -1,11 +1,11 @@
-process report{
+process pdfReport{
         container 'ufuomababatunde/rmarkdown:1.0.0'
 
         tag "Doing magic on $sample"
 
         
         publishDir (
-        path: "${params.outDir}/12_reports/",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
@@ -13,18 +13,17 @@ process report{
 
         input:
         tuple val(sample), path(json)
-        path(reportPDF)
+        path(markdownFile)
 
 
         output:
-        tuple val(sample), path('*.pdf'), emit: reportPDF
+        tuple val(sample), path('*.pdf'), emit: report
 
         script:
         """
-        Rscript -e 'rmarkdown::render("${reportPDF}", 
+        Rscript -e 'rmarkdown::render("${markdownFile}", 
             params=list(
                 header="${params.reportHeader}",
-                mutation_comments="${params.sierraMutationDBComments}",
                 dr_report_hivdb="${json}",
                 mutational_threshold=${params.hydraMinVariantFrequency},
                 minimum_read_depth=${params.hydraMinVariantDepth},

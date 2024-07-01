@@ -12,7 +12,7 @@ header-includes:
   - "\\pagestyle{fancy}"
   - "\\fancyhf{}"
   - "\\fancyhead[LE,RO]{Version 1.0.0}"
-  - "\\fancyhead[RE,LO]{Karumata pipeline}"
+  - "\\fancyhead[RE,LO]{Figaro pipeline}"
   - "\\fancyfoot[RE,LO]{Report created on \\today}"
   - "\\fancyfoot[LE,RO]{\\thepage}"
   - "\\fancypagestyle{plain}{\\pagestyle{fancy}}"
@@ -22,11 +22,11 @@ header-includes:
   - "\\titleformat{\\subsection}{\\large\\bfseries\\rlap{\\color{blue!50}\\rule[0.0ex]{\\linewidth}{3ex}\\vspace{-4.2ex}}\\large\\color{white}}{\\thesubsection}{1em}{}"
 
 params:
+  header: ""
   dr_report_hivdb: ""
-  mutation_comments: ""
-  mutational_threshold: 0
-  minimum_read_depth: 0
-  minimum_percentage_cons: 0
+  mutational_threshold: ""
+  minimum_read_depth: ""
+  minimum_percentage_cons: "" 
 ---
 
 ```{r setup, include=FALSE}
