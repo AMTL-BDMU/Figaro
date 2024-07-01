@@ -24,7 +24,6 @@ process pdfReport{
         Rscript -e 'rmarkdown::render("${markdownFile}", 
             params=list(
                 header="${params.reportHeader}",
-                mutation_comments="${params.sierraMutationDBComments}",
                 dr_report_hivdb="${json}",
                 mutational_threshold=${params.hydraMinVariantFrequency},
                 minimum_read_depth=${params.hydraMinVariantDepth},
