@@ -7,13 +7,15 @@ include {nanoq} from '../modules/ont/nanoq.nf'
 include {fastqcRaw} from '../modules/ont/fastqc.nf'
 include {fastqcTrimmed} from '../modules/ont/fastqc.nf'
 
+include {sierra} from '../modules/report/sierra.nf'
+
 
 // import subworkflow
 include {stage1} from '../subworkflows/iterations.nf'
 include {stage2} from '../subworkflows/iterations.nf'
 include {stage3} from '../subworkflows/iterations.nf'
-include {stage4} from '../subworkflows/iterations.nf'
-include {stage5} from '../subworkflows/iterations.nf'
+
+
 
 workflow ontAmplicon {
     // Set channel for the fastq directories
@@ -61,6 +63,5 @@ workflow ontAmplicon {
         stage1(nanoq.out.trimmedFastq)
         stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
         stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
-        stage4(nanoq.out.trimmedFastq, stage3.out.consensus)
-        stage5(nanoq.out.trimmedFastq, stage4.out.consensus)
+        sierra(stage3.out.consensus)
 }

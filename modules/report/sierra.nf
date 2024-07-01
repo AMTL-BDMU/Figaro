@@ -1,12 +1,10 @@
 process sierra {
         container 'ufuomababatunde/sierralocal:1.4.0'
-
-        //errorStrategy 'ignore'
-        
+      
         tag "Creating JSON file for $sample"
 
         publishDir (
-        path: "${params.outDir}/11_sierra",
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
         mode: 'copy',
         overwrite: 'true'
         )
