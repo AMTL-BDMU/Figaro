@@ -12,6 +12,7 @@ include {pdfReport} from '../modules/report/pdfReport.nf'
 
 workflow illuminaWGS {
     Channel
+        .fromFilePairs("${params.inDir}/*{,.trimmed}_{R1,R2,1,2}{,_001}.{fastq,fq}{,.gz}", flat:true)
         .fromFilePairs(params.inDir, flat:true)
         .ifEmpty{error "Cannot find any reads matching: ${params.inDir}"}
         .set{ch_sample}
