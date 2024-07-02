@@ -24,9 +24,7 @@ header-includes:
 params:
   header: ""
   dr_report_hivdb: ""
-  mutational_threshold: ""
-  minimum_read_depth: ""
-  minimum_percentage_cons: "" 
+
 ---
 
 ```{r setup, include=FALSE}
@@ -192,15 +190,6 @@ mutationList_display<-function(x){
 **Sequence includes**: `r genes`
 
 **Sequence subtype**: `r hivdr$subtype`
-
-## **Basic pipeline parameters**
-
-**Minimum mutation frequency**: `r paste0(params$mutational_threshold)`
-
-**Minimum percentage a base needs to be incorportated into the consensus sequence**: `r paste0(params$minimum_percentage_cons)`
-
-**Minimum read depth**: `r params$minimum_read_depth`
-
 
 ## **Drug Resistance Interpretation: PR**
 

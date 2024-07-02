@@ -4,11 +4,12 @@ nextflow.enable.dsl=2
 // import modules
 include {concatenate} from '../modules/ont/concatenate.nf'
 include {nanoq} from '../modules/ont/nanoq.nf'
-include {fastqcRaw} from '../modules/ont/fastqc.nf'
-include {fastqcTrimmed} from '../modules/ont/fastqc.nf'
 
-include {sierra} from '../modules/report/sierra.nf'
-include {pdfReport} from '../modules/report/pdfReport.nf'
+include {fastqcRawSE} from '../modules/misc/fastqc.nf'
+include {fastqcTrimmedSE} from '../modules/misc/fastqc.nf'
+
+include {sierra} from '../modules/misc/sierra.nf'
+include {pdfReport} from '../modules/misc/pdfReport.nf'
 
 
 
@@ -39,9 +40,9 @@ workflow ontAmplicon {
                         return[dir.baseName, dir]
                     }           
             concatenate(ch_sample)
-            fastqcRaw(concatenate.out.concatFastq)
+            fastqcRawSE(concatenate.out.concatFastq)
             nanoq(concatenate.out.concatFastq)
-            fastqcTrimmed(nanoq.out.trimmedFastq)
+            fastqcTrimmedSE(nanoq.out.trimmedFastq)
 
 
         } else if (fastqDir) {
@@ -53,9 +54,9 @@ workflow ontAmplicon {
                         def reads = file.countFastq()
                         return [baseName, file]
                     }
-            fastqcRaw(ch_sample)
+            fastqcRawSE(ch_sample)
             nanoq(ch_sample)
-            fastqcTrimmed(nanoq.out.trimmedFastq)
+            fastqcTrimmedSE(nanoq.out.trimmedFastq)
 
         } else {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inDir ./raw/fastq_pass/ or --inDir ./fastqConcatenated/"

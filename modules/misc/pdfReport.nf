@@ -25,9 +25,6 @@ process pdfReport{
             params=list(
                 header="${params.reportHeader}",
                 dr_report_hivdb="${json}",
-                mutational_threshold=${params.hydraMinVariantFrequency},
-                minimum_read_depth=${params.hydraMinVariantDepth},
-                minimum_percentage_cons=${params.hydraConsensusPercent}), 
                 output_file="hivdr_${sample}.pdf", output_dir = getwd())'
         """
 }
