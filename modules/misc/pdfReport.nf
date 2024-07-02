@@ -24,7 +24,7 @@ process pdfReport{
         Rscript -e 'rmarkdown::render("${markdownFile}", 
             params=list(
                 header="${params.reportHeader}",
-                dr_report_hivdb="${json}",
+                dr_report_hivdb="${json}"),
                 output_file="hivdr_${sample}.pdf", output_dir = getwd())'
         """
 }
