@@ -10,7 +10,7 @@ include {hydra} from '../modules/illumina/hydra.nf'
 include {sierra} from '../modules/report/sierra.nf'
 include {pdfReport} from '../modules/report/pdfReport.nf'
 
-workflow illuminaWGS {
+workflow illuminaShotgun {
     Channel
         .fromFilePairs("${params.inDir}/*{,.trimmed}_{R1,R2,1,2}{,_001}.{fastq,fq}{,.gz}", flat:true)
         .fromFilePairs(params.inDir, flat:true)

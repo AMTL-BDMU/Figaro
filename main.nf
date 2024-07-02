@@ -5,13 +5,16 @@ nextflow.enable.dsl=2
 // Define a help message
 def helpMessage = """
 Usage:
-    nextflow run Figaro --ontAmplicon --inDir reads/ --outDir results
+    nextflow run Figaro {--ontAmplicon, illuminaShotgun} -- --inDir reads/ --outDir results
 
 Options:
     --help                  Show this help message and exit
-    --ontAmplicon           Run using the ONT amplicon workflow
     --inDir                 Directory containing the raw reads
     --outDir                Directory of the results
+
+Choose only one workflow.
+    --ontAmplicon           Run using the ONT amplicon workflow
+    --illuminaShotgun       Run using the Illumina shotgun workflow
 """
 
 
@@ -24,9 +27,9 @@ if (params.help) {
 
 // import subworkflows
 include {ontAmplicon} from './workflows/ont-wf.nf'
-include {illuminaWGS} from './workflows/illumina-wf.nf'
+include {illuminaShotgun} from './workflows/illumina-wf.nf'
 
-illuminaWGS
+illuminaShotgun
 
 workflow {
     main:
@@ -34,8 +37,8 @@ workflow {
             ontAmplicon()
         }
 
-        else if (params.illuminaWGS) {
-            illuminaWGS()
+        else if (params.illuminaShotgun) {
+            illuminaShotgun()
         }
 
         else {
