@@ -1,5 +1,5 @@
 process hydra {
-	container 'alfredug/quasitools:v0.0.1'
+	container 'ufuomababatunde/quasitools:v0.7.0'
 
 	tag "Doing magic on $sample"
 
@@ -14,8 +14,7 @@ process hydra {
 	tuple val(sample), path(fastq_1), path(fastq_2)
 
 	output:
-	path("${sample}/*")
-	tuple val(sample), path("${sample}/*.fasta"), emit: consensus
+	tuple val(sample), path("*.consensus.fasta"), emit: consensus
 
 
 	script:
@@ -34,6 +33,7 @@ process hydra {
         --id ${sample} \\
         --output_dir ${sample}
 
+    cp ${sample}/consensus.fasta ${sample}.consensus.fasta
 	"""
 
 }
