@@ -13,7 +13,6 @@ include {pdfReport} from '../modules/misc/pdfReport.nf'
 workflow illuminaShotgun {
     Channel
         .fromFilePairs("${params.inDir}/*{,.trimmed}_{R1,R2,1,2}{,_001}.{fastq,fq}{,.gz}", flat:true)
-        .fromFilePairs(params.inDir, flat:true)
         .ifEmpty{error "Cannot find any reads matching: ${params.inDir}"}
         .set{ch_sample}
         
