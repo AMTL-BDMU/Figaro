@@ -10,7 +10,7 @@ include {hydra} from '../modules/illumina/hydra.nf'
 include {sierra} from '../modules/report/sierra.nf'
 include {pdfReport} from '../modules/report/pdfReport.nf'
 
-workflow {
+workflow illuminaWGS {
     Channel
         .fromFilePairs(params.inDir, flat:true)
         .ifEmpty{error "Cannot find any reads matching: ${params.inDir}"}

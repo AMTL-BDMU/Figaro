@@ -24,11 +24,18 @@ if (params.help) {
 
 // import subworkflows
 include {ontAmplicon} from './workflows/ont-wf.nf'
+include {illuminaWGS} from './workflows/illumina-wf.nf'
+
+illuminaWGS
 
 workflow {
     main:
         if (params.ontAmplicon) {
             ontAmplicon()
+        }
+
+        else if (params.illuminaWGS) {
+            illuminaWGS()
         }
 
         else {
