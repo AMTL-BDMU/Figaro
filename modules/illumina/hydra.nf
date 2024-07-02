@@ -14,8 +14,7 @@ process hydra {
 	tuple val(sample), path(fastq_1), path(fastq_2)
 
 	output:
-	path("${sample}/*")
-	tuple val(sample), path("${sample}/*.fasta"), emit: consensus
+	tuple val(sample), path("*.consensus.fasta"), emit: consensus
 
 
 	script:
@@ -33,6 +32,8 @@ process hydra {
         --min_freq ${params.hydraMinVariantFrequency} \\
         --id ${sample} \\
         --output_dir ${sample}
+
+    cp ${sample}/consensus.fasta ${sample}.consensus.fasta
 	"""
 
 }
