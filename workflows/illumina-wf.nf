@@ -7,8 +7,8 @@ include {fastP} from '../modules/illumina/fastP.nf'
 include {fastqcRawPE} from '../modules/misc/fastqc.nf'
 include {fastqcTrimmedPE} from '../modules/misc/fastqc.nf'
 include {hydra} from '../modules/illumina/hydra.nf'
-include {sierra} from '../modules/report/sierra.nf'
-include {pdfReport} from '../modules/report/pdfReport.nf'
+include {sierra} from '../modules/misc/sierra.nf'
+include {pdfReport} from '../modules/misc/pdfReport.nf'
 
 workflow illuminaShotgun {
     Channel
