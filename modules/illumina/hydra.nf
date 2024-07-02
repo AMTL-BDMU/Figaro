@@ -1,5 +1,5 @@
 process hydra {
-	container 'ufuomababatunde/quasitools:v0.7.0'
+	container 'alfredug/quasitools:v0.0.1'
 
 	tag "Doing magic on $sample"
 
