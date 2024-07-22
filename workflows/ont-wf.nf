@@ -4,14 +4,17 @@ nextflow.enable.dsl=2
 // import modules
 include {concatenate} from '../modules/ont/concatenate.nf'
 include {nanoq} from '../modules/ont/nanoq.nf'
-
 include {fastqcRawSE} from '../modules/misc/fastqc.nf'
 include {fastqcTrimmedSE} from '../modules/misc/fastqc.nf'
-
 include {sierra} from '../modules/misc/sierra.nf'
 include {pdfReport} from '../modules/misc/pdfReport.nf'
 
-
+include {minimap2} from '../modules/ont/minimap2.nf'
+include {sam2bam} from '../modules/ont/samtools.nf'
+include {sortIndexMinimap} from '../modules/ont/samtools.nf'
+include {trimPrimer} from '../modules/ont/ivar.nf'
+include {sortIndexIvar} from '../modules/ont/samtools.nf'
+include {medaka} from '../modules/ont/medaka.nf'
 
 // import subworkflow
 include {stage1} from '../subworkflows/iterations.nf'
@@ -63,9 +66,17 @@ workflow ontAmplicon {
             System.exit(1)
         }
 
-        stage1(nanoq.out.trimmedFastq)
-        stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
-        stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
+        // stage1(nanoq.out.trimmedFastq)
+        // stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
+        // stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
+
+        minimap2(ch_trimmedFastq, params.reference)
+        sam2bam(minimap2.out.sam)
+        sortIndexMinimap(sam2bam.out.bam)
+        trimPrimer(sortIndexMinimap.out.bamBai)
+        sortIndexIvar(trimPrimer.out.trimmedBam)
+        medaka(sortIndexIvar.out.bamBai)
+
         sierra(stage3.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
 }
