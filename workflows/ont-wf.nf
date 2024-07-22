@@ -77,6 +77,6 @@ workflow ontAmplicon {
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
-        sierra(stage3.out.consensus)
+        sierra(medaka.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
 }
