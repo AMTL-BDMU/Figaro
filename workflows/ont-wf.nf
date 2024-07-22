@@ -70,7 +70,7 @@ workflow ontAmplicon {
         // stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
         // stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
 
-        minimap2(ch_trimmedFastq, params.reference)
+        minimap2(nanoq.out.trimmedFastq, params.reference)
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
