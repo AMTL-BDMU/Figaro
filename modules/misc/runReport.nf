@@ -1,5 +1,5 @@
 process getPhredTrimmed {
-        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+        container 'ufuomababatunde/samtoolsv1.17--pymodulesv4'
 
         tag "${sample}"
 
