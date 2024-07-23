@@ -62,7 +62,7 @@ process getDepth {
 
 
         input:
-        tuple val(sample), path(bam), path(json)
+        tuple val(sample), path(bam), path(bai), path(json)
 
         output:
         tuple val(sample), path("*.updated.json"), emit: depthJSON
