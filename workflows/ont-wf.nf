@@ -73,7 +73,7 @@ workflow ontAmplicon {
         medaka(sortIndexIvar.out.bamBai)
 
         getPhredTrimmed(nanoq.out.trimmedFastq)
-        getDepth(sortIndexIvar.out.bamBai)
+        getDepth(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
 
         sierra(medaka.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
