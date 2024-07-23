@@ -65,7 +65,7 @@ process getDepth {
         tuple val(sample), path(bam), path(bai), path(json)
 
         output:
-        tuple val(sample), path("*.updated.json"), emit: depthJSON
+        tuple val(sample), path("*.updatedDepth.json"), emit: depthJSON
 
         script:
         """      
@@ -76,14 +76,14 @@ process getDepth {
 
         update_json.py \\
             --json ${json} \\
-            --out ${sample}.updated.json \\
+            --out ${sample}.updatedDepth.json \\
             --sample ${sample} \\
             --feature alignment_bp \\
             --value \${genomeBP}
 
         update_json.py \\
-            --json ${sample}.updated.json \\
-            --out ${sample}.updated.json \\
+            --json ${sample}.updatedDepth.json \\
+            --out ${sample}.updatedDepth.json \\
             --sample ${sample} \\
             --feature alignment_depth \\
             --value \${genomeDepth}
