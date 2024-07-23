@@ -17,6 +17,7 @@ include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
 
 
+include {getReadNumberLength} from '../modules/misc/runReport.nf'
 include {getPhredTrimmed} from '../modules/misc/runReport.nf'
 include {getDepth} from '../modules/misc/runReport.nf'
 
@@ -72,7 +73,8 @@ workflow ontAmplicon {
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
-        getPhredTrimmed(nanoq.out.trimmedFastq)
+        getReadNumberLength(ch_sample.join(nanoq.out.trimmedFastq))
+        getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
         getDepth(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
 
         sierra(medaka.out.consensus)

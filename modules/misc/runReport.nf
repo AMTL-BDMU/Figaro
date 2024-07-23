@@ -1,5 +1,5 @@
-process getPhredTrimmed {
-        container 'ufuomababatunde/samtoolsv1.17--pymodulesv4'
+process getReadNumberLength {
+        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
 
         tag "${sample}"
 
@@ -11,10 +11,75 @@ process getPhredTrimmed {
 
 
         input:
-        tuple val(sample), path(fastq)
+        tuple val(sample), path(fastq_raw), path(fastq_trimmed)
 
         output:
-        tuple val(sample), path("*.updated.json"), emit: phredJSON
+        tuple val(sample), path("*.numlen.updated.json"), emit: numlenJSON
+
+        script:
+        """
+        readNumber_raw=\$(seqkit stats \$fastq_raw | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
+        readMeanLength_raw=\$(seqkit stats \$fastq_raw | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
+
+        readNumber_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
+        readMeanLength_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
+
+        passedReadsProp=\$(echo \$readNumber_trimmed \$readNumber_raw | awk '{printf "%.2f", \$1 / \$2}')
+
+
+        create_blankJSON.py \\
+            --title ${params.outDir} \\
+            --outJSON starting_blank.json
+
+
+        update_json.py \\
+            --json starting_blank.json \\
+            --out ${sample}.numlen.updated.json \\
+            --sample ${sample} \\
+            --feature readsNumber_initial \\
+            --value \${readNumber_raw}
+
+        update_json.py \\
+            --json ${sample}.numlen.updated.json \\
+            --out ${sample}.numlen.updated.json \\
+            --sample ${sample} \\
+            --feature readsProportion_passed \\
+            --value \${passedReadsProp}
+
+        update_json.py \\
+            --json ${sample}.numlen.updated.json \\
+            --out ${sample}.numlen.updated.json \\
+            --sample ${sample} \\
+            --feature medianReadLength_initial \\
+            --value \${readMeanLength_raw}
+
+        update_json.py \\
+            --json ${sample}.numlen.updated.json \\
+            --out ${sample}.numlen.updated.json \\
+            --sample ${sample} \\
+            --feature medianReadLength_final \\
+            --value \${readMeanLength_trimmed}
+        """
+}
+
+
+process getPhredTrimmed {
+        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+
+        tag "${sample}"
+
+        publishDir (
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        tuple val(sample), path(fastq), path(json)
+
+        output:
+        tuple val(sample), path("*.phred.updated.json"), emit: phredJSON
 
         script:
         """
@@ -27,21 +92,16 @@ process getPhredTrimmed {
         readPhred=\$(tail -n+2 ${sample}.summaryQual.tsv | awk -F "\\t" '{print \$2}' | paste -sd ',')
 
 
-        create_blankJSON.py \\
-            --title ${params.outDir} \\
-            --outJSON starting_blank.json
-
-
         update_json.py \\
-            --json starting_blank.json \\
-            --out ${sample}.updated.json \\
+            --json ${json} \\
+            --out ${sample}.phred.updated.json \\
             --sample ${sample} \\
             --feature qc_bp \\
             --value \${readBP}
 
         update_json.py \\
-            --json ${sample}.updated.json \\
-            --out ${sample}.updated.json \\
+            --json ${sample}.phred.updated.json \\
+            --out ${sample}.phred.updated.json \\
             --sample ${sample} \\
             --feature qc_phred \\
             --value \${readPhred}
@@ -50,7 +110,7 @@ process getPhredTrimmed {
 
 
 process getDepth {
-        container 'ufuomababatunde/samtoolsv1.17--pymodulesv4'
+        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
 
         tag "${sample}"
 
@@ -65,7 +125,7 @@ process getDepth {
         tuple val(sample), path(bam), path(bai), path(json)
 
         output:
-        tuple val(sample), path("*.updatedDepth.json"), emit: depthJSON
+        tuple val(sample), path("*.depth.updated.json"), emit: depthJSON
 
         script:
         """      
@@ -76,16 +136,18 @@ process getDepth {
 
         update_json.py \\
             --json ${json} \\
-            --out ${sample}.updatedDepth.json \\
+            --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
             --feature alignment_bp \\
             --value \${genomeBP}
 
         update_json.py \\
-            --json ${sample}.updatedDepth.json \\
-            --out ${sample}.updatedDepth.json \\
+            --json ${sample}.depth.updated.json \\
+            --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
             --feature alignment_depth \\
             --value \${genomeDepth}
         """
 }
+
+
