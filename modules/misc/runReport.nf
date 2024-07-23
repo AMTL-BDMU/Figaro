@@ -22,12 +22,12 @@ process getPhredTrimmed {
             --inFastq ${fastq} \\
             --outSummary ${sample}.summaryQual.tsv
         
-        readBP=$(tail -n+2 ${sample}.summaryQual.tsv | \\
-            awk -F "\t" '{print $1}' | \\
+        readBP=$(tail -n+2 ${sample}.summaryQual.tsv | \
+            awk -F "\t" '{print $1}' | \
             paste -sd ',')
 
-        readPhred=$(tail -n+2 ${sample}.summaryQual.tsv | \\
-            awk -F "\t" '{print $2}' | \\
+        readPhred=$(tail -n+2 ${sample}.summaryQual.tsv | \
+            awk -F "\t" '{print $2}' | \
             paste -sd ',')
 
 
