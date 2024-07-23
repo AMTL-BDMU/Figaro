@@ -18,7 +18,7 @@ process getPhredTrimmed {
 
         script:
         """
-        python3 median_quality.py \\
+        runReport/median_quality.py \\
             --inFastq ${fastq} \\
             --outSummary ${sample}.summaryQual.tsv
         
@@ -27,19 +27,19 @@ process getPhredTrimmed {
         readPhred=\$(tail -n+2 ${sample}.summaryQual.tsv | awk -F "\\t" '{print \$2}' | paste -sd ',')
 
 
-        python3 create_blankJSON.py \\
+        runReport/create_blankJSON.py \\
             --title ${params.outDir} \\
             --outJSON starting_blank.json
 
 
-        python3 update_json.py \\
+        runReport/update_json.py \\
             --json starting_blank.json \\
             --out ${sample}.updated.json \\
             --sample ${sample} \\
             --feature qc_bp \\
             --value \${readBP}
 
-        python3 update_json.py \\
+        runReport/update_json.py \\
             --json ${sample}.updated.json \\
             --out ${sample}.updated.json \\
             --sample ${sample} \\
