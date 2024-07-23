@@ -18,6 +18,7 @@ process getPhredTrimmed {
 
         script:
         """
+        #!/bin/bash
         python3 runReport/median_quality.py \\
             --inFastq ${fastq} \\
             --outSummary ${sample}.summaryQual.tsv
