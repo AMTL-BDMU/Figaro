@@ -8,7 +8,6 @@ include {fastqcRawSE} from '../modules/misc/fastqc.nf'
 include {fastqcTrimmedSE} from '../modules/misc/fastqc.nf'
 include {sierra} from '../modules/misc/sierra.nf'
 include {pdfReport} from '../modules/misc/pdfReport.nf'
-include {mosdepth} from '../modules/misc/mosdepth.nf'
 
 include {minimap2} from '../modules/ont/minimap2.nf'
 include {sam2bam} from '../modules/ont/samtools.nf'
@@ -16,6 +15,9 @@ include {sortIndexMinimap} from '../modules/ont/samtools.nf'
 include {trimPrimer} from '../modules/ont/ivar.nf'
 include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
+
+
+include {getPhredTrimmed} from '../modules/misc/runReport.nf'
 
 
 
@@ -68,8 +70,8 @@ workflow ontAmplicon {
         trimPrimer(sortIndexMinimap.out.bamBai)
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
-        mosdepth(sortIndexIvar.out.bamBai)
 
+        getPhredTrimmed(nanoq.out.trimmedFastq)
         sierra(medaka.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
 }
