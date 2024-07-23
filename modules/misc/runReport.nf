@@ -37,13 +37,13 @@ process getPhredTrimmed {
             --out ${sample}.updated.json \\
             --sample ${sample} \\
             --feature qc_bp \\
-            --value ${readBP}
+            --value \${readBP}
 
         python3 runReport/update_json.py \\
             --json ${sample}.updated.json \\
             --out ${sample}.updated.json \\
             --sample ${sample} \\
             --feature qc_phred \\
-            --value ${readPhred}
+            --value \${readPhred}
         """
 }
