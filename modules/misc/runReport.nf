@@ -71,7 +71,7 @@ process getDepth {
         """      
         genomeBP=\$(samtools depth -a ${bam} | awk -F "\\t" '{print \$2}' | paste -sd ',')
 
-        genomeDepth=\$(samtools depth -a ${bam} | awk -F "\\t" '{print \$2}' | paste -sd ',')
+        genomeDepth=\$(samtools depth -a ${bam} | awk -F "\\t" '{print \$3}' | paste -sd ',')
 
 
         update_json.py \\
