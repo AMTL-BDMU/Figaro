@@ -18,6 +18,7 @@ include {medaka} from '../modules/ont/medaka.nf'
 
 
 include {getPhredTrimmed} from '../modules/misc/runReport.nf'
+include {getDepth} from '../modules/misc/runReport.nf'
 
 
 
@@ -72,6 +73,8 @@ workflow ontAmplicon {
         medaka(sortIndexIvar.out.bamBai)
 
         getPhredTrimmed(nanoq.out.trimmedFastq)
+        getDepth(sortIndexIvar.out.bamBai)
+
         sierra(medaka.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
 }
