@@ -8,6 +8,7 @@ include {fastqcRawSE} from '../modules/misc/fastqc.nf'
 include {fastqcTrimmedSE} from '../modules/misc/fastqc.nf'
 include {sierra} from '../modules/misc/sierra.nf'
 include {pdfReport} from '../modules/misc/pdfReport.nf'
+include {mosdepth} from '../modules/misc/mosdepth.nf'
 
 include {minimap2} from '../modules/ont/minimap2.nf'
 include {sam2bam} from '../modules/ont/samtools.nf'
@@ -15,11 +16,6 @@ include {sortIndexMinimap} from '../modules/ont/samtools.nf'
 include {trimPrimer} from '../modules/ont/ivar.nf'
 include {sortIndexIvar} from '../modules/ont/samtools.nf'
 include {medaka} from '../modules/ont/medaka.nf'
-
-// import subworkflow
-include {stage1} from '../subworkflows/iterations.nf'
-include {stage2} from '../subworkflows/iterations.nf'
-include {stage3} from '../subworkflows/iterations.nf'
 
 
 
@@ -66,16 +62,13 @@ workflow ontAmplicon {
             System.exit(1)
         }
 
-        // stage1(nanoq.out.trimmedFastq)
-        // stage2(nanoq.out.trimmedFastq, stage1.out.consensus)
-        // stage3(nanoq.out.trimmedFastq, stage2.out.consensus)
-
         minimap2(nanoq.out.trimmedFastq, params.reference)
         sam2bam(minimap2.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
+        mosdepth(sortIndexIvar.out.bamBai)
 
         sierra(medaka.out.consensus)
         pdfReport(sierra.out.json, params.markdownFile)
