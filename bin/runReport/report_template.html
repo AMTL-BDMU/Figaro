@@ -182,9 +182,9 @@
                     <th data-column="1" data-order="-1">Sample</th>
                     <th data-column="2" data-order="-1">Initial Total Reads</th>
                     <th data-column="3" data-order="-1">Passed Reads (%)</th>
-                    <th data-column="4" data-order="-1">Median Read Length (bp): Initial</th>
-                    <th data-column="5" data-order="-1">Median Read Length (bp): Final</th>
-                    <th data-column="6" data-order="-1">Median Depth</th>
+                    <th data-column="4" data-order="-1">Mean Read Length (bp): Initial</th>
+                    <th data-column="5" data-order="-1">Mean Read Length (bp): Final</th>
+                    <th data-column="6" data-order="-1">Mean Depth</th>
                     <th data-column="7" data-order="-1">Genome Coverage (%)</th>
                     <th data-column="8" data-order="-1">Overall Result</th>
 
@@ -213,9 +213,9 @@
             <select id="variable-select">
                 <option value="readsNumber_initial">Initial Total Reads</option>
                 <option value="readsProportion_passed">Passed Reads (%)</option>
-                <option value="meanReadLength_initial">Median Read Length (bp): Initial</option>
-                <option value="meanReadLength_final">Median Read Length (bp): Final</option>
-                <option value="meanDepth">Median Depth</option>
+                <option value="meanReadLength_initial">Mean Read Length (bp): Initial</option>
+                <option value="meanReadLength_final">Mean Read Length (bp): Final</option>
+                <option value="meanDepth">Mean Depth</option>
                 <option value="samplegenomeCoverage">Genome Coverage (%)</option>
             </select>
         </div> 
@@ -260,9 +260,9 @@
             samplegenomeCoverage: 'Genome Coverage (%)',
             readsNumber_initial: 'Initial Total Reads',
             readsProportion_passed: 'Passed Reads (%)',
-            meanReadLength_initial: 'Median Read Length (bp): Initial',
-            meanReadLength_final: 'Median Read Length (bp): Final',
-            meanDepth: 'Median Depth'
+            meanReadLength_initial: 'Mean Read Length (bp): Initial',
+            meanReadLength_final: 'Mean Read Length (bp): Final',
+            meanDepth: 'Mean Depth'
         };
 
         var ctxBar = document.getElementById('sampleBarChart').getContext('2d');
