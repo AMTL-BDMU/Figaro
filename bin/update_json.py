@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import json
 import argparse
 import re
@@ -45,7 +43,10 @@ def parse_value(value, expected_type, feature):
         except (ValueError, json.JSONDecodeError):
             raise ValueError(f"The value for the list should be a valid list.")
     else:
-        return expected_type(value)
+        parsed_value = expected_type(value)
+        if expected_type == float:
+            parsed_value = round(parsed_value, 2)
+        return parsed_value
 
 def update_json_file(input_json, output_json, sample, feature, value):
     try:
