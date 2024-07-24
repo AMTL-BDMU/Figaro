@@ -18,8 +18,8 @@ process getReadNumberLength {
 
         script:
         """
-        readNumber_raw=\$(seqkit stats \$fastq_raw | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
-        readMeanLength_raw=\$(seqkit stats \$fastq_raw | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
+        readNumber_raw=\$(seqkit stats $fastq_raw | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
+        readMeanLength_raw=\$(seqkit stats $fastq_raw | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
 
         readNumber_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
         readMeanLength_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
