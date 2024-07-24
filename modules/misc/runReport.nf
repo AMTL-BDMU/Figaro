@@ -157,7 +157,7 @@ process getDepth {
 process htmlRunReport {
         container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
-        tag "${sample}"
+        tag "Generating Run report"
 
         publishDir (
         path: "${params.outDir}/${task.process.replaceAll(":","_")}",
@@ -186,7 +186,7 @@ process htmlRunReport {
 
         generate_report.py \\
             --json filledIn_combined.json \\
-            --template report_template.html \\
+            --template ${params.templateHtmlRunReport} \\
             --report report.html
         """
 }
