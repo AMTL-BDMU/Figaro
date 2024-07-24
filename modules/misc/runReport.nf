@@ -24,7 +24,7 @@ process getReadNumberLength {
         readNumber_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$4}' | tail -n1 | sed 's/,//g')
         readMeanLength_trimmed=\$(seqkit stats $fastq_trimmed | awk -F " " '{print \$7}' | tail -n1 | sed 's/,//g')
 
-        passedReadsProp=\$(echo "scale=2; \$readNumber_trimmed/\$readNumber_raw" | bc)
+        passedReadsProp=\$(echo "\$readNumber_trimmed/\$readNumber_raw * 100" | bc -l)
 
 
 
@@ -47,7 +47,7 @@ process getReadNumberLength {
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature readsProportion_passed \\
-            --value \${readNumber_trimmed}
+            --value \${passedReadsProp}
 
         update_json.py \\
             --json ${sample}.numlen.updated.json \\
