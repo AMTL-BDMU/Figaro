@@ -184,9 +184,12 @@ process htmlRunReport {
             --outTXT missingFeatures.txt \\
             --outJSON filledIn_combined.json
 
+
+        cp ${params.templateHtmlRunReport} .
+
         generate_report.py \\
             --json filledIn_combined.json \\
-            --template ${params.templateHtmlRunReport} \\
+            --template report_template.html \\
             --report report.html
         """
 }
