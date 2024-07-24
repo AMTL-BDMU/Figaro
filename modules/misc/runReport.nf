@@ -175,16 +175,16 @@ process htmlRunReport {
 
         script:
         """
-        python3 combine_json.py \\
+        combine_json.py \\
             --input ${json} \\
             --output combined.json
         
-        python3 check_jsonFeatures.py \\
+        check_jsonFeatures.py \\
             --inJSON combined.json \\
             --outTXT missingFeatures.txt \\
             --outJSON filledIn_combined.json
 
-        python3 generate_report.py \\
+        generate_report.py \\
             --json filledIn_combined.json \\
             --template report_template.html \\
             --report report.html
