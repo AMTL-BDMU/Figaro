@@ -112,7 +112,7 @@ process getPhredTrimmed {
 }
 
 
-process getDepth {
+process getBAMinfo {
         container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
 
         tag "${sample}"
@@ -133,9 +133,10 @@ process getDepth {
         script:
         """      
         genomeBP=\$(samtools depth -a ${bam} | awk -F "\\t" '{print \$2}' | paste -sd ',')
-
         genomeDepth=\$(samtools depth -a ${bam} | awk -F "\\t" '{print \$3}' | paste -sd ',')
 
+        meanCoverage=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$6}')
+        meanDepth=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$7}')
 
         update_json.py \\
             --json ${json} \\
@@ -150,6 +151,21 @@ process getDepth {
             --sample ${sample} \\
             --feature alignment_depth \\
             --value \${genomeDepth}
+
+
+        update_json.py \\
+            --json ${sample}.depth.updated.json \\
+            --out ${sample}.depth.updated.json \\
+            --sample ${sample} \\
+            --feature genomeCoverage \\
+            --value \${meanCoverage}
+
+        update_json.py \\
+            --json ${sample}.depth.updated.json \\
+            --out ${sample}.depth.updated.json \\
+            --sample ${sample} \\
+            --feature medianDepth \\
+            --value \${meanDepth}
         """
 }
 
