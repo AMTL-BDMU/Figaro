@@ -1,5 +1,5 @@
 process getReadNumberLength {
-        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
         tag "${sample}"
 
@@ -64,7 +64,7 @@ process getReadNumberLength {
 
 
 process getPhredTrimmed {
-        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
         tag "${sample}"
 
@@ -110,7 +110,7 @@ process getPhredTrimmed {
 
 
 process getDepth {
-        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
         tag "${sample}"
 
