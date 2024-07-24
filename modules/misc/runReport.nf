@@ -157,7 +157,7 @@ process getDepth {
 process checkCombineJSON {
         container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
-        tag "Generating Run report"
+        tag "Combining JSON files"
 
         publishDir (
         path: "${params.outDir}/${task.process.replaceAll(":","_")}",
@@ -171,6 +171,7 @@ process checkCombineJSON {
 
         output:
         path("filledIn_combined.json"), emit: combinedJSON
+        path("missingFeatures.txt"), emit: missing
 
         script:
         """
