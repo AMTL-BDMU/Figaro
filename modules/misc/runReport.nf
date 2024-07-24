@@ -128,7 +128,7 @@ process getDepth {
         tuple val(sample), path(bam), path(bai), path(json)
 
         output:
-        tuple val(sample), path("*.depth.updated.json"), emit: depthJSON
+        path("*.depth.updated.json"), emit: depthJSON
 
         script:
         """      
@@ -154,3 +154,39 @@ process getDepth {
 }
 
 
+process htmlRunReport {
+        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
+
+        tag "${sample}"
+
+        publishDir (
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        path(json)
+
+        output:
+        path("filledIn_combined.json"), emit: combinedJSON
+        path("report.html"), emit: htmlReport
+
+        script:
+        """
+        python3 combine_json.py \\
+            --input ${json} \\
+            --output combined.json
+        
+        python3 check_jsonFeatures.py \\
+            --inJSON combined.json \\
+            --outTXT missingFeatures.txt \\
+            --outJSON filledIn_combined.json
+
+        python3 generate_report.py \\
+            --json filledIn_combined.json \\
+            --template report_template.html \\
+            --report report.html
+        """
+}
