@@ -26,6 +26,11 @@ process getReadNumberLength {
 
         passedReadsProp=\$(echo \$readNumber_trimmed \$readNumber_raw | awk '{printf "%.2f", \$1 / \$2}')
 
+        passedReadsProp=\$(echo "scale=2; \$readNumber_trimmed/\$readNumber_raw" | bc)
+
+
+
+
 
         create_blankJSON.py \\
             --title ${params.outDir} \\
