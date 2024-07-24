@@ -73,7 +73,7 @@ workflow ontAmplicon {
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
-        getReadNumberLength(ch_sample.join(nanoq.out.trimmedFastq))
+        getReadNumberLength(concatenate.out.concatFastq.join(nanoq.out.trimmedFastq))
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
         getDepth(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
 
