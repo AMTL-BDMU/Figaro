@@ -38,7 +38,6 @@ def main():
             return
 
     combine_json_files(args.input, args.output)
-    print(f"Combined JSON file saved to {args.output}")
 
 if __name__ == "__main__":
     main()
