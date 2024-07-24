@@ -110,7 +110,7 @@ process getPhredTrimmed {
 
 
 process getDepth {
-        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
+        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
 
         tag "${sample}"
 
