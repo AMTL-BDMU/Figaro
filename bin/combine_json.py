@@ -6,7 +6,7 @@ import os
 
 def combine_json_files(input_files, output_file):
     combined_data = {
-        "report_title": "Combined Summary Report",
+        "report_title": "Summary Report",
         "report_date": None,  # This could be set to the current date/time if needed
         "samples": []
     }
