@@ -154,7 +154,7 @@ process getDepth {
 }
 
 
-process htmlRunReport {
+process checkCombineJSON {
         container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
         tag "Generating Run report"
@@ -171,7 +171,6 @@ process htmlRunReport {
 
         output:
         path("filledIn_combined.json"), emit: combinedJSON
-        path("report.html"), emit: htmlReport
 
         script:
         """
@@ -183,9 +182,33 @@ process htmlRunReport {
             --inJSON combined.json \\
             --outTXT missingFeatures.txt \\
             --outJSON filledIn_combined.json
+        """
+}
 
+
+
+process htmlRunReport {
+        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
+
+        tag "Generating Run report"
+
+        publishDir (
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        path(json)
+
+        output:
+        path("report.html"), emit: htmlReport
+
+        script:
+        """
         generate_report.py \\
-            --json filledIn_combined.json \\
+            --json ${json} \\
             --template ${params.templateHtmlRunReport} \\
             --report report.html
         """
