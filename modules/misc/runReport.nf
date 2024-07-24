@@ -154,40 +154,6 @@ process getDepth {
 }
 
 
-process checkCombineJSON {
-        container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
-
-        tag "Combining JSON files"
-
-        publishDir (
-        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
-        mode: 'copy',
-        overwrite: 'true'
-        )
-
-
-        input:
-        path(json)
-
-        output:
-        path("filledIn_combined.json"), emit: combinedJSON
-        path("missingFeatures.txt"), emit: missing
-
-        script:
-        """
-        combine_json.py \\
-            --input ${json} \\
-            --output combined.json
-        
-        check_jsonFeatures.py \\
-            --inJSON combined.json \\
-            --outTXT missingFeatures.txt \\
-            --outJSON filledIn_combined.json
-        """
-}
-
-
-
 process htmlRunReport {
         container 'ufuomababatunde/seqkit-pymodule:v2.8.2'
 
@@ -204,12 +170,22 @@ process htmlRunReport {
         path(json)
 
         output:
+        path("filledIn_combined.json"), emit: combinedJSON
         path("report.html"), emit: htmlReport
 
         script:
         """
+        combine_json.py \\
+            --input ${json} \\
+            --output combined.json
+        
+        check_jsonFeatures.py \\
+            --inJSON combined.json \\
+            --outTXT missingFeatures.txt \\
+            --outJSON filledIn_combined.json
+
         generate_report.py \\
-            --json ${json} \\
+            --json filledIn_combined.json \\
             --template ${params.templateHtmlRunReport} \\
             --report report.html
         """

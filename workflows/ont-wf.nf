@@ -20,7 +20,6 @@ include {medaka} from '../modules/ont/medaka.nf'
 include {getReadNumberLength} from '../modules/misc/runReport.nf'
 include {getPhredTrimmed} from '../modules/misc/runReport.nf'
 include {getDepth} from '../modules/misc/runReport.nf'
-include {checkCombineJSON} from '../modules/misc/runReport.nf'
 include {htmlRunReport} from '../modules/misc/runReport.nf'
 
 
@@ -79,8 +78,7 @@ workflow ontAmplicon {
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
         getDepth(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
 
-        checkCombineJSON(getDepth.out.depthJSON.collect())
-        htmlRunReport(checkCombineJSON.out.combinedJSON)
+        htmlRunReport(getDepth.out.depthJSON.collect())
 
 
         sierra(medaka.out.consensus)
