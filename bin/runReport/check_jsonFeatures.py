@@ -8,9 +8,9 @@ import sys
 valid_features = [
     'readsNumber_initial',
     'readsProportion_passed',
-    'medianReadLength_initial',
-    'medianReadLength_final',
-    'medianDepth',
+    'meanReadLength_initial',
+    'meanReadLength_final',
+    'meanDepth',
     'genomeCoverage',
     'overallResult',
     'qc_bp',

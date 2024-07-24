@@ -53,14 +53,14 @@ process getReadNumberLength {
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
-            --feature medianReadLength_initial \\
+            --feature meanReadLength_initial \\
             --value \${readMeanLength_raw}
 
         update_json.py \\
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
-            --feature medianReadLength_final \\
+            --feature meanReadLength_final \\
             --value \${readMeanLength_trimmed}
         """
 }
@@ -164,7 +164,7 @@ process getBAMinfo {
             --json ${sample}.depth.updated.json \\
             --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
-            --feature medianDepth \\
+            --feature meanDepth \\
             --value \${meanDepth}
         """
 }

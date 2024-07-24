@@ -196,9 +196,9 @@
                     <td>{{ sample.sample_name }}</td>
                     <td>{{ sample.readsNumber_initial }}</td>
                     <td>{{ sample.readsProportion_passed }}</td>
-                    <td>{{ sample.medianReadLength_initial }}</td>
-                    <td>{{ sample.medianReadLength_final }}</td>
-                    <td>{{ sample.medianDepth }}</td>
+                    <td>{{ sample.meanReadLength_initial }}</td>
+                    <td>{{ sample.meanReadLength_final }}</td>
+                    <td>{{ sample.meanDepth }}</td>
                     <td>{{ sample.genomeCoverage }}</td>
                     <td>{{ sample.overallResult }}</td>
 
@@ -213,9 +213,9 @@
             <select id="variable-select">
                 <option value="readsNumber_initial">Initial Total Reads</option>
                 <option value="readsProportion_passed">Passed Reads (%)</option>
-                <option value="medianReadLength_initial">Median Read Length (bp): Initial</option>
-                <option value="medianReadLength_final">Median Read Length (bp): Final</option>
-                <option value="medianDepth">Median Depth</option>
+                <option value="meanReadLength_initial">Median Read Length (bp): Initial</option>
+                <option value="meanReadLength_final">Median Read Length (bp): Final</option>
+                <option value="meanDepth">Median Depth</option>
                 <option value="samplegenomeCoverage">Genome Coverage (%)</option>
             </select>
         </div> 
@@ -250,9 +250,9 @@
             samplegenomeCoverage: {{ samples | map(attribute='genomeCoverage') | list }},
             readsNumber_initial: {{ samples | map(attribute='readsNumber_initial') | list }},
             readsProportion_passed: {{ samples | map(attribute='readsProportion_passed') | list }},
-            medianReadLength_initial: {{ samples | map(attribute='medianReadLength_initial') | list }},
-            medianReadLength_final: {{ samples | map(attribute='medianReadLength_final') | list }},
-            medianDepth: {{ samples | map(attribute='medianDepth') | list }}
+            meanReadLength_initial: {{ samples | map(attribute='meanReadLength_initial') | list }},
+            meanReadLength_final: {{ samples | map(attribute='meanReadLength_final') | list }},
+            meanDepth: {{ samples | map(attribute='meanDepth') | list }}
         };
 
         // Define readable y axis labels for each variable
@@ -260,9 +260,9 @@
             samplegenomeCoverage: 'Genome Coverage (%)',
             readsNumber_initial: 'Initial Total Reads',
             readsProportion_passed: 'Passed Reads (%)',
-            medianReadLength_initial: 'Median Read Length (bp): Initial',
-            medianReadLength_final: 'Median Read Length (bp): Final',
-            medianDepth: 'Median Depth'
+            meanReadLength_initial: 'Median Read Length (bp): Initial',
+            meanReadLength_final: 'Median Read Length (bp): Final',
+            meanDepth: 'Median Depth'
         };
 
         var ctxBar = document.getElementById('sampleBarChart').getContext('2d');

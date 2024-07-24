@@ -17,9 +17,9 @@ def generate_report(input_json, template_html, report_html):
 
     sample_readsNumber_initial = [sample['readsNumber_initial'] for sample in data['samples']]
     sample_readsProportion_passed = [sample['readsProportion_passed'] for sample in data['samples']]
-    sample_medianReadLength_initial = [sample['medianReadLength_initial'] for sample in data['samples']]
-    sample_medianReadLength_final = [sample['medianReadLength_final'] for sample in data['samples']]
-    sample_medianDepth = [sample['medianDepth'] for sample in data['samples']]
+    sample_meanReadLength_initial = [sample['meanReadLength_initial'] for sample in data['samples']]
+    sample_meanReadLength_final = [sample['meanReadLength_final'] for sample in data['samples']]
+    sample_meanDepth = [sample['meanDepth'] for sample in data['samples']]
 
     readQC_data = [{
         'name': sample['sample_name'],
@@ -44,9 +44,9 @@ def generate_report(input_json, template_html, report_html):
         'alignment_data': json.dumps(alignment_data),
         'sample_readsNumber_initial': json.dumps(sample_readsNumber_initial),
         'sample_readsProportion_passed': json.dumps(sample_readsProportion_passed),
-        'sample_medianReadLength_initial': json.dumps(sample_medianReadLength_initial),
-        'sample_medianReadLength_final': json.dumps(sample_medianReadLength_final),
-        'sample_medianDepth': json.dumps(sample_medianDepth)
+        'sample_meanReadLength_initial': json.dumps(sample_meanReadLength_initial),
+        'sample_meanReadLength_final': json.dumps(sample_meanReadLength_final),
+        'sample_meanDepth': json.dumps(sample_meanDepth)
     }
 
     # Render the HTML template with the data

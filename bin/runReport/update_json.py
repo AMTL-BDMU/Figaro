@@ -8,9 +8,9 @@ import re
 valid_features = {
     'readsNumber_initial': float,
     'readsProportion_passed': float,
-    'medianReadLength_initial': float,
-    'medianReadLength_final': float,
-    'medianDepth': float,
+    'meanReadLength_initial': float,
+    'meanReadLength_final': float,
+    'meanDepth': float,
     'genomeCoverage': float,
     'overallResult': str,
     'qc_bp': list,
