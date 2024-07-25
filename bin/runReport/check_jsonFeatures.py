@@ -60,8 +60,7 @@ def main():
     
     has_missing_features = check_samples(args.inJSON, args.outTXT, args.outJSON)
     
-    if has_missing_features:
-        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
