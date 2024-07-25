@@ -30,41 +30,41 @@ process getReadNumberLength {
 
 
 
-        runReport/create_blankJSON.py \\
+        create_blankJSON.py \\
             --title ${params.outDir} \\
             --outJSON starting_blank.json
 
         # Set overallResult default as "Failed"
         # This will be updated later on the pipeline
-        runReport/update_json.py \\
+        update_json.py \\
             --json starting_blank.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature overallResult \\
             --value Failed
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature readsNumber_initial \\
             --value \${readNumber_raw}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature readsProportion_passed \\
             --value \${passedReadsProp}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature meanReadLength_initial \\
             --value \${readMeanLength_raw}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
@@ -94,7 +94,7 @@ process getPhredTrimmed {
 
         script:
         """
-        runReport/median_quality.py \\
+        median_quality.py \\
             --inFastq ${fastq} \\
             --outSummary ${sample}.summaryQual.tsv
         
@@ -103,14 +103,14 @@ process getPhredTrimmed {
         readPhred=\$(tail -n+2 ${sample}.summaryQual.tsv | awk -F "\\t" '{print \$2}' | paste -sd ',')
 
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${json} \\
             --out ${sample}.phred.updated.json \\
             --sample ${sample} \\
             --feature qc_bp \\
             --value \${readBP}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.phred.updated.json \\
             --out ${sample}.phred.updated.json \\
             --sample ${sample} \\
@@ -146,14 +146,14 @@ process getBAMinfo {
         meanCoverage=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$6}')
         meanDepth=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$7}')
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${json} \\
             --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
             --feature alignment_bp \\
             --value \${genomeBP}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.depth.updated.json \\
             --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
@@ -161,14 +161,14 @@ process getBAMinfo {
             --value \${genomeDepth}
 
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.depth.updated.json \\
             --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
             --feature genomeCoverage \\
             --value \${meanCoverage}
 
-        runReport/update_json.py \\
+        update_json.py \\
             --json ${sample}.depth.updated.json \\
             --out ${sample}.depth.updated.json \\
             --sample ${sample} \\
@@ -200,16 +200,16 @@ process htmlRunReport {
 
         script:
         """
-        runReport/combine_json.py \\
+        combine_json.py \\
             --input ${json} \\
             --output combined.json
         
-        runReport/check_jsonFeatures.py \\
+        check_jsonFeatures.py \\
             --inJSON combined.json \\
             --outTXT missingFeatures.txt \\
             --outJSON filledIn_combined.json
 
-        runReport/update_overallResult.py \\
+        update_overallResult.py \\
             --inJSON filledIn_combined.json \\
             --outJSON updated_overAllResult.json \\
             --result Passed \\
@@ -218,7 +218,7 @@ process htmlRunReport {
 
         cp ${params.templateHtmlRunReport} .
 
-        runReport/generate_report.py \\
+        generate_report.py \\
             --json updated_overAllResult.json \\
             --template report_template.html \\
             --report report.html
