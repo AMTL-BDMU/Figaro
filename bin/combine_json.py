@@ -18,6 +18,9 @@ def combine_json_files(input_files, output_file):
             if combined_data["report_date"] is None:
                 combined_data["report_date"] = data["report_date"]
 
+    # Sort the samples based on the 'sample_name' key
+    combined_data["samples"] = sorted(combined_data["samples"], key=lambda x: x["sample_name"])
+
     with open(output_file, 'w') as f:
         json.dump(combined_data, f, indent=4)
 
