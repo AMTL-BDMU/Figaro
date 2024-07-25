@@ -212,7 +212,7 @@ process htmlRunReport {
         update_overallResult.py \\
             --inJSON filledIn_combined.json \\
             --outJSON updated_overAllResult.json \\
-            --status Passed \\
+            --result Passed \\
             --sample ${sample}
 
 
