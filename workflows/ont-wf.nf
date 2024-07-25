@@ -79,9 +79,7 @@ workflow ontAmplicon {
         getBAMinfo(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
      
         sierra(medaka.out.consensus)
-        //Collect the samples that passed in sierra process
-        passedSamples = sierra.out.json.collect{it[0]}
 
-        htmlRunReport(getBAMinfo.out.depthJSON.collect(), passedSamples)
+        htmlRunReport(getBAMinfo.out.depthJSON.collect(), sierra.out.json.collect{it[0]})
         pdfReport(sierra.out.json, params.markdownFile)
 }
