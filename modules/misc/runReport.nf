@@ -34,9 +34,17 @@ process getReadNumberLength {
             --title ${params.outDir} \\
             --outJSON starting_blank.json
 
-
+        # Set overallResult default as "Failed"
+        # This will be updated later on the pipeline
         update_json.py \\
             --json starting_blank.json \\
+            --out ${sample}.numlen.updated.json \\
+            --sample ${sample} \\
+            --feature overallResult \\
+            --value Failed
+
+        update_json.py \\
+            --json ${sample}.numlen.updated.json \\
             --out ${sample}.numlen.updated.json \\
             --sample ${sample} \\
             --feature readsNumber_initial \\
