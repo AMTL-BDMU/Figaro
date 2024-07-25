@@ -192,6 +192,7 @@ process htmlRunReport {
 
         input:
         path(json)
+        val(sample)
 
         output:
         path("filledIn_combined.json"), emit: combinedJSON
@@ -208,11 +209,17 @@ process htmlRunReport {
             --outTXT missingFeatures.txt \\
             --outJSON filledIn_combined.json
 
+        update_overallResult.py \\
+            --inJSON filledIn_combined.json \\
+            --outJSON updated_overAllResult.json \\
+            --status Passed \\
+            --sample ${sample}
+
 
         cp ${params.templateHtmlRunReport} .
 
         generate_report.py \\
-            --json filledIn_combined.json \\
+            --json updated_overAllResult.json \\
             --template report_template.html \\
             --report report.html
         """

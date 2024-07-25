@@ -77,10 +77,9 @@ workflow ontAmplicon {
         getReadNumberLength(concatenate.out.concatFastq.join(nanoq.out.trimmedFastq))
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
         getBAMinfo(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
-
-        htmlRunReport(getBAMinfo.out.depthJSON.collect())
-
-
+     
         sierra(medaka.out.consensus)
+
+        htmlRunReport(getBAMinfo.out.depthJSON.collect(), sierra.out.passedSample.collect())
         pdfReport(sierra.out.json, params.markdownFile)
 }
