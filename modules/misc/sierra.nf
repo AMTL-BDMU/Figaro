@@ -18,7 +18,6 @@ process sierra {
         output:
         tuple val(sample), path('consensus*.json'), optional: true, emit: json
         path('*.drugResistanceScore.csv'), optional: true, emit: csv
-        val(sample), emit: passedSample
 
         script:
         """

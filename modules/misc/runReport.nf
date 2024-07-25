@@ -192,7 +192,7 @@ process htmlRunReport {
 
         input:
         path(json)
-        val(sample)
+        tuple val(sample), path(sierraJSON)
 
         output:
         path("filledIn_combined.json"), emit: combinedJSON

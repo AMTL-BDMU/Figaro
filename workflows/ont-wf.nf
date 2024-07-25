@@ -80,6 +80,6 @@ workflow ontAmplicon {
      
         sierra(medaka.out.consensus)
 
-        htmlRunReport(getBAMinfo.out.depthJSON.collect(), sierra.out.passedSample.collect())
+        htmlRunReport(getBAMinfo.out.depthJSON.collect(), sierra.out.json.collect())
         pdfReport(sierra.out.json, params.markdownFile)
 }
