@@ -250,7 +250,7 @@
 
         // Define data for each variable
         var sampleData = {
-            samplemappedReads: {{ samples | map(attribute='mappedReads') | list }},
+            mappedReads: {{ samples | map(attribute='mappedReads') | list }},
             samplegenomeCoverage: {{ samples | map(attribute='genomeCoverage') | list }},
             readsNumber_initial: {{ samples | map(attribute='readsNumber_initial') | list }},
             readsProportion_passed: {{ samples | map(attribute='readsProportion_passed') | list }},
@@ -261,7 +261,7 @@
 
         // Define readable y axis labels for each variable
         var variableLabels = {
-            samplemappedReads: 'Mapped Reads (%)',
+            mappedReads: 'Mapped Reads (%)',
             samplegenomeCoverage: 'Genome Coverage (%)',
             readsNumber_initial: 'Initial Total Reads',
             readsProportion_passed: 'Passed Reads (%)',
