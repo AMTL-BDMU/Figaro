@@ -184,9 +184,10 @@
                     <th data-column="3" data-order="-1">Passed Reads (%)</th>
                     <th data-column="4" data-order="-1">Mean Read Length (bp): Initial</th>
                     <th data-column="5" data-order="-1">Mean Read Length (bp): Final</th>
-                    <th data-column="6" data-order="-1">Mean Depth</th>
-                    <th data-column="7" data-order="-1">Genome Coverage (%)</th>
-                    <th data-column="8" data-order="-1">Overall Result</th>
+                    <th data-column="6" data-order="-1">Mapped Reads (%)</th>
+                    <th data-column="7" data-order="-1">Mean Depth</th>
+                    <th data-column="8" data-order="-1">Genome Coverage (%)</th>
+                    <th data-column="9" data-order="-1">Overall Result</th>
 
                 </tr>
             </thead>
@@ -198,6 +199,7 @@
                     <td>{{ sample.readsProportion_passed }}</td>
                     <td>{{ sample.meanReadLength_initial }}</td>
                     <td>{{ sample.meanReadLength_final }}</td>
+                    <td>{{ sample.mappedReads }}</td>
                     <td>{{ sample.meanDepth }}</td>
                     <td>{{ sample.genomeCoverage }}</td>
                     <td>{{ sample.overallResult }}</td>
@@ -215,6 +217,7 @@
                 <option value="readsProportion_passed">Passed Reads (%)</option>
                 <option value="meanReadLength_initial">Mean Read Length (bp): Initial</option>
                 <option value="meanReadLength_final">Mean Read Length (bp): Final</option>
+                <option value="mappedReads">Mapped Reads (%)</option>
                 <option value="meanDepth">Mean Depth</option>
                 <option value="samplegenomeCoverage">Genome Coverage (%)</option>
             </select>
@@ -247,6 +250,7 @@
 
         // Define data for each variable
         var sampleData = {
+            samplemappedReads: {{ samples | map(attribute='mappedReads') | list }},
             samplegenomeCoverage: {{ samples | map(attribute='genomeCoverage') | list }},
             readsNumber_initial: {{ samples | map(attribute='readsNumber_initial') | list }},
             readsProportion_passed: {{ samples | map(attribute='readsProportion_passed') | list }},
@@ -257,6 +261,7 @@
 
         // Define readable y axis labels for each variable
         var variableLabels = {
+            samplemappedReads: 'Mapped Reads (%)',
             samplegenomeCoverage: 'Genome Coverage (%)',
             readsNumber_initial: 'Initial Total Reads',
             readsProportion_passed: 'Passed Reads (%)',
