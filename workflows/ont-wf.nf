@@ -19,6 +19,7 @@ include {medaka} from '../modules/ont/medaka.nf'
 
 include {getReadNumberLength} from '../modules/misc/runReport.nf'
 include {getPhredTrimmed} from '../modules/misc/runReport.nf'
+include {getMappedPercent} from '../modules/misc/runReport.nf'
 include {getBAMinfo} from '../modules/misc/runReport.nf'
 include {htmlRunReport} from '../modules/misc/runReport.nf'
 
@@ -76,7 +77,10 @@ workflow ontAmplicon {
 
         getReadNumberLength(concatenate.out.concatFastq.join(nanoq.out.trimmedFastq))
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
-        getBAMinfo(sortIndexIvar.out.bamBai.join(getPhredTrimmed.out.phredJSON))
+
+        getMappedPercent(minimap2.out.sam.join(getPhredTrimmed.out.phredJSON))
+
+        getBAMinfo(sortIndexIvar.out.bamBai.join(getMappedPercent.out.mappedJSON))
      
         sierra(medaka.out.consensus)
 

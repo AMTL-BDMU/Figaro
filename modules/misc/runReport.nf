@@ -120,6 +120,43 @@ process getPhredTrimmed {
 }
 
 
+process getMappedPercent {
+        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+
+        tag "${sample}"
+
+        publishDir (
+        path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+        mode: 'copy',
+        overwrite: 'true'
+        )
+
+
+        input:
+        tuple val(sample), path(sam), path(json)
+
+        output:
+        path("*.mapped.updated.json"), emit: mappedJSON
+
+        script:
+        """      
+        mappedPercent=\$(samtools flagstat ${sam} -O tsv | grep "mapped %" | head -n1 | awk -F "\\t" '{print \$1}' | tr -d %)
+
+        update_json.py \\
+            --json ${json} \\
+            --out ${sample}.mapped.updated.json \\
+            --sample ${sample} \\
+            --feature mappedReads \\
+            --value \${mappedPercent}
+
+
+        """
+}
+
+
+
+
+
 process getBAMinfo {
         container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
 
@@ -146,7 +183,6 @@ process getBAMinfo {
         meanCoverage=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$6}')
         meanDepth=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$7}')
 
-        mappedPercent=\$(samtools flagstat ${bam} -O tsv | grep "mapped %" | head -n1 | awk -F "\\t" '{print \$1}' | tr -d %)
 
         update_json.py \\
             --json ${json} \\
@@ -161,13 +197,6 @@ process getBAMinfo {
             --sample ${sample} \\
             --feature alignment_depth \\
             --value \${genomeDepth}
-
-        update_json.py \\
-            --json ${sample}.depth.updated.json \\
-            --out ${sample}.depth.updated.json \\
-            --sample ${sample} \\
-            --feature mappedReads \\
-            --value \${mappedPercent}
 
         update_json.py \\
             --json ${sample}.depth.updated.json \\
