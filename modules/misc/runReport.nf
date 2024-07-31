@@ -136,7 +136,7 @@ process getMappedPercent {
         tuple val(sample), path(sam), path(json)
 
         output:
-        path("*.mapped.updated.json"), emit: mappedJSON
+        tuple val(sample), path("*.mapped.updated.json"), emit: mappedJSON
 
         script:
         """      
