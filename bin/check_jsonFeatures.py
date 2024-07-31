@@ -10,6 +10,7 @@ valid_features = [
     'readsProportion_passed',
     'meanReadLength_initial',
     'meanReadLength_final',
+    'mappedReads',
     'meanDepth',
     'genomeCoverage',
     'overallResult',

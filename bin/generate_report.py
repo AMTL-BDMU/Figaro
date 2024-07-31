@@ -14,6 +14,7 @@ def generate_report(input_json, template_html, report_html):
     # Extract data for the bar plot and line plot
     sample_names = [sample['sample_name'] for sample in data['samples']]
     sample_genomeCoverages = [sample['genomeCoverage'] for sample in data['samples']]
+    sample_mappedReads = [sample['mappedReads'] for sample in data['samples']]
 
     sample_readsNumber_initial = [sample['readsNumber_initial'] for sample in data['samples']]
     sample_readsProportion_passed = [sample['readsProportion_passed'] for sample in data['samples']]
@@ -40,6 +41,7 @@ def generate_report(input_json, template_html, report_html):
         'samples': data['samples'],
         'sample_names': json.dumps(sample_names),
         'sample_genomeCoverages': json.dumps(sample_genomeCoverages),
+        'sample_mappedReads': json.dumps(sample_mappedReads),
         'readQC_data': json.dumps(readQC_data),
         'alignment_data': json.dumps(alignment_data),
         'sample_readsNumber_initial': json.dumps(sample_readsNumber_initial),

@@ -10,6 +10,7 @@ valid_features = {
     'readsProportion_passed': float,
     'meanReadLength_initial': float,
     'meanReadLength_final': float,
+    'mappedReads': float,
     'meanDepth': float,
     'genomeCoverage': float,
     'overallResult': str,

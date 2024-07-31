@@ -146,6 +146,8 @@ process getBAMinfo {
         meanCoverage=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$6}')
         meanDepth=\$(samtools coverage ${bam} --no-header | awk -F "\\t" '{print \$7}')
 
+        mappedPercent=\$(samtools flagstat ${bam} -O tsv | grep "mapped %" | awk -F "\\t" '{print \$1}' | tr -d %)
+
         update_json.py \\
             --json ${json} \\
             --out ${sample}.depth.updated.json \\
@@ -160,6 +162,12 @@ process getBAMinfo {
             --feature alignment_depth \\
             --value \${genomeDepth}
 
+        update_json.py \\
+            --json ${sample}.depth.updated.json \\
+            --out ${sample}.depth.updated.json \\
+            --sample ${sample} \\
+            --feature mappedReads \\
+            --value \${mappedPercent}
 
         update_json.py \\
             --json ${sample}.depth.updated.json \\
