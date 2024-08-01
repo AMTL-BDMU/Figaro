@@ -25,7 +25,7 @@ process sierra {
             # The file is not-empty.
             sierralocal $fasta \
                 -o tmp.json \
-                -xml ${params.sierraXML}
+                -xml ${params.sierraXML} \
                 -alignment nuc
             checkJSON.py --json tmp.json --sample ${sample}
         else
