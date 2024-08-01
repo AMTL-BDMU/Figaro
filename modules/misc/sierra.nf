@@ -1,5 +1,5 @@
 process sierra {
-        container 'ufuomababatunde/sierralocal:1.4.0'
+        container 'ufuomababatunde/sierralocal:0.4'
 
         errorStrategy 'ignore'
         
@@ -26,6 +26,7 @@ process sierra {
             sierralocal $fasta \
                 -o tmp.json \
                 -xml ${params.sierraXML}
+                -alignment nuc
             checkJSON.py --json tmp.json --sample ${sample}
         else
             echo "Skipping since there is no consensus sequence"
