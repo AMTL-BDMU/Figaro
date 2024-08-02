@@ -1,0 +1,331 @@
+---
+title: "\\textbf{HIV Drug Resistance Report}"
+output:
+  pdf_document:
+header-includes:
+  - "\\usepackage{fancyhdr}"
+  - "\\usepackage{amsfonts,amssymb,amsmath}"
+  - "\\usepackage{titlesec}"
+  - "\\usepackage{soul}"
+  - "\\usepackage{datetime}"
+  - "\\usepackage{helvet}"
+  - "\\pagestyle{fancy}"
+  - "\\fancyhf{}"
+  - "\\fancyhead[LE,RO]{\\includegraphics[width=4.0cm]{`r params$logo`}}"
+  - "\\fancyfoot[RE,LO]{Report created on \\today}"
+  - "\\fancyfoot[LE,RO]{\\thepage}"
+  - "\\fancypagestyle{plain}{\\pagestyle{fancy}}"
+  - "\\renewcommand{\\familydefault}{\\sfdefault}"
+  - "\\renewcommand{\\headrulewidth}{2pt}"
+  - "\\renewcommand{\\footrulewidth}{1pt}"
+  - "\\titleformat{\\subsection}{\\large\\bfseries\\rlap{\\color{blue!50}\\rule[0.0ex]{\\linewidth}{3ex}\\vspace{-4.2ex}}\\large\\color{white}}{\\thesubsection}{1em}{}"
+
+params:
+  dr_report_hivdb: ""
+  logo: ""
+  
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(plyr)
+library(dplyr)
+library(jsonlite)
+library(tinytex)
+library(tidyverse)
+#tinytex::install_tinytex()
+```
+
+```{r, eval=TRUE, echo=FALSE}
+# Import json from sierra-local ----
+json_sierra <- jsonlite::fromJSON("consensus_barcode37.json", flatten = TRUE)
+
+# Create an empty dataframe
+df_allDrugResistance <- data.frame()
+
+# Since there is only one sample for this json file
+# You may use loop if multiple samples is present in a single json file
+index_sample <- 1
+df_result <- json_sierra[index_sample,]
+
+sampleName <- df_result$inputSequence.header
+df_DR <- df_result$drugResistance[[1]]
+geneList <- df_DR$gene.name
+
+
+# t <- df_result$alignedGeneSequences[[1]]
+subtype <- df_result$subtypeText
+AApositions <- df_result$alignedGeneSequences[[1]] |>
+  select(c(gene.name, firstAA, lastAA))
+colnames(AApositions) <- c("Gene", "firstAA", "lastAA")
+
+
+# Extract Drug Resistance Info ----
+for (gene in geneList) {
+  
+  df_geneDrugResistance <- df_DR |>
+    filter(gene.name == gene)
+  
+  version <- df_geneDrugResistance$version.text
+  versionDate <- df_geneDrugResistance$version.publishDate
+  
+  df_geneDrugScore <- df_geneDrugResistance$drugScores[[1]] |>
+    select(c("drugClass.name","drug.name", "score", "text"))
+  
+  colnames(df_geneDrugScore) <- c("Drug Class", "Drug Name",
+                                  "HIVDB Score", "Drug Susceptibility")
+  
+  df_allDrugResistance <- rbind(df_allDrugResistance, df_geneDrugScore)
+}
+
+
+# Extract Mutations info ----
+df_allMutations <- df_result$alignedGeneSequences[[1]] |>
+  tidyr::unnest(mutations) |>
+  select(c(text, primaryType, gene.name))
+
+colnames(df_allMutations) <- c("Mutation", "Type", "Gene")
+
+
+
+# Extract Comments related to the mutations ----
+df_partialScores <- df_result$drugResistance[[1]] |>
+  tidyr::unnest(drugScores)
+
+# Create an empty dataframe
+df_allComments <- data.frame()
+
+for (i in 1:length(df_partialScores[['partialScores']])) {
+
+  if (length(df_partialScores[['partialScores']][[i]]) > 0) {
+    comments_df <- df_partialScores[['partialScores']][[i]] |>
+      tidyr::unnest(mutations) |>
+      select(comments) |>
+      mutate(comments = map(comments, ~ as_tibble(.))) |>
+      tidyr::unnest(comments) |>
+      mutate(mutation = word(text, 1)) |>
+      select(c(mutation, type, text))
+    
+    colnames(comments_df) <- c("Mutation", "Type", "Comment")
+    
+    df_allComments <- rbind(df_allComments, comments_df)
+    
+    df_allComments <- df_allComments |>
+      ungroup() |>
+      distinct(Mutation, Type, Comment)
+  }
+}
+
+```
+
+```{r, echo=FALSE}
+# For PR ----
+PR_major <- ""
+PR_accessory <- ""
+PR_other <- ""
+PR_firstAA <- ""
+PR_lastAA <- ""
+PR_comments <- NULL
+
+if ("PR" %in% geneList) {
+  PR_major <- df_allMutations |>
+    filter(Gene == "PR" & Type == "Major")
+  
+  PR_accessory <- df_allMutations |>
+    filter(Gene == "PR" & Type == "Accessory")
+  
+  PR_other <- df_allMutations |>
+    filter(Gene == "PR" & Type == "Other")
+  
+  PR_firstAA <- AApositions |>
+    filter(Gene == "PR") |>
+    pull(firstAA)
+  
+  PR_lastAA <- AApositions |>
+    filter(Gene == "PR") |>
+    pull(lastAA)
+  
+  PR_comments <- df_allComments |>
+    filter(Type == "PI")
+}
+
+
+# For RT ----
+RT_NRTI <- ""
+RT_NNRTI <- ""
+RT_other <- ""
+RT_firstAA <- ""
+RT_lastAA <- ""
+RT_comments <- NULL
+
+if ("RT" %in% geneList) {
+  RT_NRTI <- df_allMutations |>
+    filter(Gene == "RT" & Type == "NRTI")
+  
+  RT_NNRTI <- df_allMutations |>
+    filter(Gene == "RT" & Type == "NNRTI")
+  
+  RT_other <- df_allMutations |>
+    filter(Gene == "RT" & Type == "Other")
+  
+  RT_firstAA <- AApositions |>
+    filter(Gene == "RT") |>
+    pull(firstAA)
+  
+  RT_lastAA <- AApositions |>
+    filter(Gene == "RT") |>
+    pull(lastAA)
+  
+  RT_comments <- df_allComments |>
+    filter(Type == "NRTI" | Type == "NNRTI")
+}
+
+
+# For IN ----
+IN_major <- ""
+IN_accessory <- ""
+IN_other <- ""
+IN_firstAA <- ""
+IN_lastAA <- ""
+IN_comments <- NULL
+
+if ("IN" %in% geneList) {
+  IN_major <- df_allMutations |>
+    filter(Gene == "IN" & Type == "Major")
+  
+  IN_accessory <- df_allMutations |>
+    filter(Gene == "IN" & Type == "Accessory")
+  
+  IN_other <- df_allMutations |>
+    filter(Gene == "IN" & Type == "Other")
+  
+  IN_firstAA <- AApositions |>
+    filter(Gene == "IN") |>
+    pull(firstAA)
+  
+  IN_lastAA <- AApositions |>
+    filter(Gene == "IN") |>
+    pull(lastAA)
+  
+  IN_comments <- df_allComments |>
+    filter(Type == "INSTI")
+}
+
+```
+
+``` {r, echo=FALSE}
+showList <- function(input) {
+  if (nrow(input) > 0) {
+    return(input |> pull(Mutation))
+  } else {
+    return("None")
+  }
+}
+
+bold_first_word <- function(x) {
+  words <- str_split(x, " ", n = 2)
+  bolded <- sapply(words, function(y) paste0("**", y[1], "**", ifelse(length(y) > 1, paste0(" ", y[2]), "")))
+  return(bolded)
+}
+
+
+showComments <- function(input) {
+  if (nrow(input) > 0) {
+    selected_comment <- input |>
+      select(Comment) |>
+      mutate(across(everything(), bold_first_word))
+
+    knitr::kable(selected_comment, align = "l",
+                 row.names = FALSE, col.names = NULL)
+  } else {
+    return("None")
+  }
+}
+
+```
+
+## **Sample summary**
+**Sample name:** `r sampleName`
+
+**Mapped genes:** `r geneList`
+
+**Subtype:** `r subtype`
+
+**Algorithm version**: `r paste0("HIVDB ", version, " (", versionDate, ")" )`
+
+## **Protease**
+**Codon Coverage:** `r paste(PR_firstAA, "-", PR_lastAA)`
+
+**PR Major Mutations:** `r showList(PR_major)`
+
+**PR Accessory Mutations:** `r showList(PR_accessory)`
+
+**Other Mutations:** `r showList(PR_other)`
+
+**Comments:** `r showComments(PR_comments)`
+
+#### **Drug Resistance Score: Protease Inhibitors**
+```{r,echo=FALSE}
+PR_drugResistance <- df_allDrugResistance |>
+  filter(`Drug Class` == "PI") |>
+  select(-`Drug Class`)
+
+knitr::kable(PR_drugResistance, align = 'c',
+             row.names=FALSE)  
+```
+
+\newpage
+
+## **Reverse Transcriptase**
+**Codon Coverage:** `r paste(RT_firstAA, "-", RT_lastAA)`
+
+**NRTI-related Mutations**: `r showList(RT_NRTI)`
+
+**NNRTI-related Mutations**: `r showList(RT_NNRTI)`
+
+**Other Mutations**: `r showList(RT_other)`
+
+**Comments**: `r showComments(RT_comments)`
+
+#### **Drug Resistance Score: Nucleoside Reverse Transcriptase Inhibitors**
+```{r,echo=FALSE}
+RT_NRTI_drugResistance <- df_allDrugResistance |>
+  filter(`Drug Class` == "NRTI") |>
+  select(-`Drug Class`)
+
+knitr::kable(RT_NRTI_drugResistance, align = 'c',
+             row.names=FALSE)  
+```
+
+#### **Drug Resistance Score: Non-Nucleoside Reverse Transcriptase Inhibitors**
+```{r,echo=FALSE}
+RT_NNRTI_drugResistance <- df_allDrugResistance |>
+  filter(`Drug Class` == "NNRTI") |>
+  select(-`Drug Class`)
+
+knitr::kable(RT_NNRTI_drugResistance, align = 'c',
+             row.names=FALSE)  
+```
+
+\newpage
+
+## **Integrase**
+**Codon Coverage:** `r paste(IN_firstAA, "-", IN_lastAA)`
+
+**IN Major Mutations**: `r showList(IN_major)`
+
+**IN Accessory Mutations**: `r showList(IN_accessory)`
+
+**Other Mutations**: `r showList(IN_other)`
+
+**Comments**: `r showComments(IN_comments)`
+
+#### **Drug Resistance Score: Protease Inhibitors**
+```{r,echo=FALSE}
+IN_drugResistance <- df_allDrugResistance |>
+  filter(`Drug Class` == "INSTI") |>
+  select(-`Drug Class`)
+
+knitr::kable(IN_drugResistance, align = 'c',
+             row.names=FALSE)  
+```
