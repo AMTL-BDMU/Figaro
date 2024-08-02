@@ -26,7 +26,8 @@ process sierra {
             sierralocal $fasta \
                 -o tmp.json \
                 -xml ${params.sierraXML} \
-                -alignment nuc
+                -alignment nuc \
+                -subtype
             checkJSON.py --json tmp.json --sample ${sample}
         else
             echo "Skipping since there is no consensus sequence"
