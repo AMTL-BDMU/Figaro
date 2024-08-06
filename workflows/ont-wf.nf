@@ -6,6 +6,9 @@ include {concatenate} from '../modules/ont/concatenate.nf'
 include {nanoq} from '../modules/ont/nanoq.nf'
 include {fastqcRawSE} from '../modules/misc/fastqc.nf'
 include {fastqcTrimmedSE} from '../modules/misc/fastqc.nf'
+
+include {nextcladeDB} from '../modules/misc/nextclade.nf'
+include {nextcladeSubtype} from '../modules/misc/nextclade.nf'
 include {sierra} from '../modules/misc/sierra.nf'
 include {pdfReport} from '../modules/misc/pdfReport.nf'
 
@@ -81,8 +84,10 @@ workflow ontAmplicon {
         getMappedPercent(minimap2.out.sam.join(getPhredTrimmed.out.phredJSON))
 
         getBAMinfo(sortIndexIvar.out.bamBai.join(getMappedPercent.out.mappedJSON))
-     
-        sierra(medaka.out.consensus)
+
+        nextcladeDB()
+        nextcladeSubtype(medaka.out.consensus, nextcladeDB.out.database)
+        sierra(medaka.out.consensus.join(nextcladeSubtype.out.tsv))
 
         htmlRunReport(getBAMinfo.out.depthJSON.collect(), sierra.out.json.collect{it[0]})
         pdfReport(sierra.out.json, params.markdownFile)

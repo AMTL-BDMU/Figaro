@@ -28,11 +28,11 @@ params:
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(plyr)
+library(plyr)###########
 library(dplyr)
 library(jsonlite)
 library(tinytex)
-library(tidyverse)
+library(tidyverse)##########
 #tinytex::install_tinytex()
 ```
 
