@@ -38,7 +38,7 @@ library(tidyverse)##########
 
 ```{r, eval=TRUE, echo=FALSE}
 # Import json from sierra-local ----
-json_sierra <- jsonlite::fromJSON("consensus_barcode37.json", flatten = TRUE)
+json_sierra <- jsonlite::fromJSON(params$dr_report_hivdb, flatten = TRUE)
 
 # Create an empty dataframe
 df_allDrugResistance <- data.frame()
@@ -120,6 +120,7 @@ for (i in 1:length(df_partialScores[['partialScores']])) {
 
 ```{r, echo=FALSE}
 # For PR ----
+# For PR ----
 PR_major <- ""
 PR_accessory <- ""
 PR_other <- ""
@@ -145,8 +146,12 @@ if ("PR" %in% geneList) {
     filter(Gene == "PR") |>
     pull(lastAA)
   
-  PR_comments <- df_allComments |>
-    filter(Type == "PI")
+  if (nrow(df_allComments) == 0) {
+    PR_comments <- NULL
+  } else {
+    PR_comments <- df_allComments |>
+      filter(Type == "PI")
+  }
 }
 
 
@@ -176,9 +181,14 @@ if ("RT" %in% geneList) {
     filter(Gene == "RT") |>
     pull(lastAA)
   
-  RT_comments <- df_allComments |>
-    filter(Type == "NRTI" | Type == "NNRTI")
+  if (nrow(df_allComments) == 0) {
+    RT_comments <- NULL
+  } else {
+    RT_comments <- df_allComments |>
+      filter(Type == "NRTI" | Type == "NNRTI")
+  }
 }
+
 
 
 # For IN ----
@@ -207,8 +217,12 @@ if ("IN" %in% geneList) {
     filter(Gene == "IN") |>
     pull(lastAA)
   
-  IN_comments <- df_allComments |>
-    filter(Type == "INSTI")
+  if (nrow(df_allComments) == 0) {
+    IN_comments <- NULL
+  } else {
+    IN_comments <- df_allComments |>
+      filter(Type == "INSTI")
+  }
 }
 
 ```
@@ -230,15 +244,16 @@ bold_first_word <- function(x) {
 
 
 showComments <- function(input) {
-  if (nrow(input) > 0) {
+  if (is.null(input)) {
+    return("None")
+
+  } else {
     selected_comment <- input |>
       select(Comment) |>
       mutate(across(everything(), bold_first_word))
-
+    
     knitr::kable(selected_comment, align = "l",
                  row.names = FALSE, col.names = NULL)
-  } else {
-    return("None")
   }
 }
 

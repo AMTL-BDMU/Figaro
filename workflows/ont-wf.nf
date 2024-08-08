@@ -51,6 +51,7 @@ workflow ontAmplicon {
             fastqcRawSE(concatenate.out.concatFastq)
             nanoq(concatenate.out.concatFastq)
             fastqcTrimmedSE(nanoq.out.trimmedFastq)
+            getReadNumberLength(concatenate.out.concatFastq.join(nanoq.out.trimmedFastq))
 
 
         } else if (fastqDir) {
@@ -65,6 +66,7 @@ workflow ontAmplicon {
             fastqcRawSE(ch_sample)
             nanoq(ch_sample)
             fastqcTrimmedSE(nanoq.out.trimmedFastq)
+            getReadNumberLength(ch_sample.join(nanoq.out.trimmedFastq))
 
         } else {
             log.error "Please specify a valid folder containing ONT basecalled, barcoded fastq files or the concatenated fastq files e.g. --inDir ./raw/fastq_pass/ or --inDir ./fastqConcatenated/"
@@ -78,11 +80,8 @@ workflow ontAmplicon {
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
-        getReadNumberLength(concatenate.out.concatFastq.join(nanoq.out.trimmedFastq))
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
-
         getMappedPercent(minimap2.out.sam.join(getPhredTrimmed.out.phredJSON))
-
         getBAMinfo(sortIndexIvar.out.bamBai.join(getMappedPercent.out.mappedJSON))
 
         nextcladeDB()
