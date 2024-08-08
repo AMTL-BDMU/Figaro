@@ -23,16 +23,17 @@ header-includes:
 params:
   dr_report_hivdb: ""
   logo: ""
+  dr_comments: ""
   
 ---
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(plyr)###########
+library(plyr)
 library(dplyr)
 library(jsonlite)
 library(tinytex)
-library(tidyverse)##########
+library(tidyverse)
 #tinytex::install_tinytex()
 ```
 
@@ -88,38 +89,18 @@ colnames(df_allMutations) <- c("Mutation", "Type", "Gene")
 
 
 
-# Extract Comments related to the mutations ----
-df_partialScores <- df_result$drugResistance[[1]] |>
-  tidyr::unnest(drugScores)
+# Import the DR comments
+df_commentsDR <- read.csv(params$dr_comments) |>
+  select(-Type)
 
-# Create an empty dataframe
-df_allComments <- data.frame()
-
-for (i in 1:length(df_partialScores[['partialScores']])) {
-
-  if (length(df_partialScores[['partialScores']][[i]]) > 0) {
-    comments_df <- df_partialScores[['partialScores']][[i]] |>
-      tidyr::unnest(mutations) |>
-      select(comments) |>
-      mutate(comments = map(comments, ~ as_tibble(.))) |>
-      tidyr::unnest(comments) |>
-      mutate(mutation = word(text, 1)) |>
-      select(c(mutation, type, text))
-    
-    colnames(comments_df) <- c("Mutation", "Type", "Comment")
-    
-    df_allComments <- rbind(df_allComments, comments_df)
-    
-    df_allComments <- df_allComments |>
-      ungroup() |>
-      distinct(Mutation, Type, Comment)
-  }
-}
+# Combine the all mutations of the sample and their corresponding comments
+df_allMutationsComments <- left_join(df_allMutations, df_commentsDR,
+                                     by = c("Gene", "Mutation")) |>
+  drop_na()
 
 ```
 
 ```{r, echo=FALSE}
-# For PR ----
 # For PR ----
 PR_major <- ""
 PR_accessory <- ""
@@ -129,13 +110,13 @@ PR_lastAA <- ""
 PR_comments <- NULL
 
 if ("PR" %in% geneList) {
-  PR_major <- df_allMutations |>
+  PR_major <- df_allMutationsComments |>
     filter(Gene == "PR" & Type == "Major")
   
-  PR_accessory <- df_allMutations |>
+  PR_accessory <- df_allMutationsComments |>
     filter(Gene == "PR" & Type == "Accessory")
   
-  PR_other <- df_allMutations |>
+  PR_other <- df_allMutationsComments |>
     filter(Gene == "PR" & Type == "Other")
   
   PR_firstAA <- AApositions |>
@@ -146,11 +127,11 @@ if ("PR" %in% geneList) {
     filter(Gene == "PR") |>
     pull(lastAA)
   
-  if (nrow(df_allComments) == 0) {
+  if (nrow(df_allMutationsComments) == 0 ) {
     PR_comments <- NULL
   } else {
-    PR_comments <- df_allComments |>
-      filter(Type == "PI")
+    PR_comments <- df_allMutationsComments |>
+      filter(DrugClass == "PI")
   }
 }
 
@@ -164,13 +145,13 @@ RT_lastAA <- ""
 RT_comments <- NULL
 
 if ("RT" %in% geneList) {
-  RT_NRTI <- df_allMutations |>
+  RT_NRTI <- df_allMutationsComments |>
     filter(Gene == "RT" & Type == "NRTI")
   
-  RT_NNRTI <- df_allMutations |>
+  RT_NNRTI <- df_allMutationsComments |>
     filter(Gene == "RT" & Type == "NNRTI")
   
-  RT_other <- df_allMutations |>
+  RT_other <- df_allMutationsComments |>
     filter(Gene == "RT" & Type == "Other")
   
   RT_firstAA <- AApositions |>
@@ -181,11 +162,11 @@ if ("RT" %in% geneList) {
     filter(Gene == "RT") |>
     pull(lastAA)
   
-  if (nrow(df_allComments) == 0) {
+  if (nrow(df_allMutationsComments) == 0 ) {
     RT_comments <- NULL
   } else {
-    RT_comments <- df_allComments |>
-      filter(Type == "NRTI" | Type == "NNRTI")
+    RT_comments <- df_allMutationsComments |>
+      filter(DrugClass == "NRTI" | DrugClass == "NNRTI")
   }
 }
 
@@ -200,13 +181,13 @@ IN_lastAA <- ""
 IN_comments <- NULL
 
 if ("IN" %in% geneList) {
-  IN_major <- df_allMutations |>
+  IN_major <- df_allMutationsComments |>
     filter(Gene == "IN" & Type == "Major")
   
-  IN_accessory <- df_allMutations |>
+  IN_accessory <- df_allMutationsComments |>
     filter(Gene == "IN" & Type == "Accessory")
   
-  IN_other <- df_allMutations |>
+  IN_other <- df_allMutationsComments |>
     filter(Gene == "IN" & Type == "Other")
   
   IN_firstAA <- AApositions |>
@@ -217,11 +198,11 @@ if ("IN" %in% geneList) {
     filter(Gene == "IN") |>
     pull(lastAA)
   
-  if (nrow(df_allComments) == 0) {
+  if (nrow(df_allMutationsComments) == 0 ) {
     IN_comments <- NULL
   } else {
-    IN_comments <- df_allComments |>
-      filter(Type == "INSTI")
+    IN_comments <- df_allMutationsComments |>
+      filter(DrugClass == "INSTI")
   }
 }
 
@@ -249,10 +230,9 @@ showComments <- function(input) {
 
   } else {
     selected_comment <- input |>
-      select(Comment) |>
-      mutate(across(everything(), bold_first_word))
+      select(Comment)
     
-    knitr::kable(selected_comment, align = "l",
+    knitr::kable(selected_comment, align = "l", escape = FALSE,
                  row.names = FALSE, col.names = NULL)
   }
 }
