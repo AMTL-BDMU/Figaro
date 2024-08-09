@@ -35,6 +35,8 @@ library(jsonlite)
 library(tinytex)
 library(tidyverse)
 #tinytex::install_tinytex()
+
+knitr::opts_chunk$set(warning = FALSE)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -90,7 +92,7 @@ colnames(df_allMutations) <- c("Mutation", "Type", "Gene")
 
 
 # Import the DR comments
-df_commentsDR <- read.csv(params$dr_comments) |>
+df_commentsDR <- read.csv(params$dr_comments, fileEncoding = "UTF-8") |>
   select(-Type)
 
 # Combine the all mutations of the sample and their corresponding comments

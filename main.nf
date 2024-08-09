@@ -27,6 +27,7 @@ if (params.help) {
 
 // import subworkflows
 include {ontAmplicon} from './workflows/ont-wf.nf'
+include {ontShotgun} from './workflows/ont-wf.nf'
 include {illuminaShotgun} from './workflows/illumina-wf.nf'
 
 illuminaShotgun
@@ -36,7 +37,9 @@ workflow {
         if (params.ontAmplicon) {
             ontAmplicon()
         }
-
+        else if (params.ontShotgun) {
+            ontShotgun()
+        }
         else if (params.illuminaShotgun) {
             illuminaShotgun()
         }

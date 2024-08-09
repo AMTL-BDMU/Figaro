@@ -1,6 +1,6 @@
 process pdfReport{
         container 'ufuomababatunde/rmarkdown:1.2.2'
-
+        errorStrategy 'ignore'
         tag "Doing magic on $sample"
 
         
