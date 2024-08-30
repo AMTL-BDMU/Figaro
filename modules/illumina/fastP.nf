@@ -6,9 +6,19 @@
 
     publishDir (
     path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+    pattern: "*.trimmed_*.fastq",
     mode: 'copy',
     overwrite: 'true'
     )
+
+    publishDir (
+    path: "${params.outDir}/${task.process.replaceAll(":","_")}Report",
+    pattern: "*.fastp*",
+    mode: 'copy',
+    overwrite: 'true'
+    )
+
+
 
     input:
     tuple val(sample), path(fastq_1), path(fastq_2)

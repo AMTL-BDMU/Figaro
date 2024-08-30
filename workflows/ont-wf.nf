@@ -12,7 +12,7 @@ include {nextcladeSubtype} from '../modules/misc/nextclade.nf'
 include {sierra} from '../modules/misc/sierra.nf'
 include {pdfReport} from '../modules/misc/pdfReport.nf'
 
-include {minimap2} from '../modules/ont/minimap2.nf'
+include {minimap2SE} from '../modules/misc/minimap2.nf'
 include {sam2bam} from '../modules/ont/samtools.nf'
 include {sortIndexMinimap} from '../modules/ont/samtools.nf'
 include {trimPrimer} from '../modules/ont/ivar.nf'
@@ -73,15 +73,15 @@ workflow ontAmplicon {
             System.exit(1)
         }
 
-        minimap2(nanoq.out.trimmedFastq, params.reference)
-        sam2bam(minimap2.out.sam)
+        minimap2SE(nanoq.out.trimmedFastq, params.reference)
+        sam2bam(minimap2SE.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
         trimPrimer(sortIndexMinimap.out.bamBai)
         sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexIvar.out.bamBai)
 
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
-        getMappedPercent(minimap2.out.sam.join(getPhredTrimmed.out.phredJSON))
+        getMappedPercent(minimap2SE.out.sam.join(getPhredTrimmed.out.phredJSON))
         getBAMinfo(sortIndexIvar.out.bamBai.join(getMappedPercent.out.mappedJSON))
 
         nextcladeDB()
@@ -138,15 +138,13 @@ workflow ontShotgun {
             System.exit(1)
         }
 
-        minimap2(nanoq.out.trimmedFastq, params.reference)
-        sam2bam(minimap2.out.sam)
+        minimap2SE(nanoq.out.trimmedFastq, params.reference)
+        sam2bam(minimap2SE.out.sam)
         sortIndexMinimap(sam2bam.out.bam)
-        //trimPrimer(sortIndexMinimap.out.bamBai)
-        //sortIndexIvar(trimPrimer.out.trimmedBam)
         medaka(sortIndexMinimap.out.bamBai)
 
         getPhredTrimmed(nanoq.out.trimmedFastq.join(getReadNumberLength.out.numlenJSON))
-        getMappedPercent(minimap2.out.sam.join(getPhredTrimmed.out.phredJSON))
+        getMappedPercent(minimap2SE.out.sam.join(getPhredTrimmed.out.phredJSON))
         getBAMinfo(sortIndexMinimap.out.bamBai.join(getMappedPercent.out.mappedJSON))
 
         nextcladeDB()

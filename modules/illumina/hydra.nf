@@ -6,21 +6,33 @@ process hydra {
 	
 	publishDir (
     path: "${params.outDir}/${task.process.replaceAll(":","_")}",
+    pattern: "*fasta",
 	mode: 'copy',
 	overwrite: 'true'
 	)
-	
+
+
+    publishDir (
+    path: "${params.outDir}/${task.process.replaceAll(":","_")}Alignment",
+    pattern: "*.align.bam*",
+    mode: 'copy',
+    overwrite: 'true'
+    )
+
+
 	input:
 	tuple val(sample), path(fastq_1), path(fastq_2)
 
 	output:
 	tuple val(sample), path("*.consensus.fasta"), emit: consensus
+    tuple val(sample), path("*.align.bam"), path("*.align.bam.bai"), emit: bamBai
 
 
 	script:
 	"""
 	quasitools hydra ${fastq_1} ${fastq_2} \\
         --generate_consensus \\
+        --mask_reads \\
         --reporting_threshold ${params.hydraReportThreshold} \\
         --min_read_qual ${params.hydraMinReadQuality} \\
         --consensus_pct ${params.hydraConsensusPercent} \\
@@ -34,6 +46,9 @@ process hydra {
         --output_dir ${sample}
 
     cp ${sample}/consensus.fasta ${sample}.consensus.fasta
+
+    cp ${sample}/align.bam ${sample}.align.bam
+    cp ${sample}/align.bam.bai ${sample}.align.bam.bai
 	"""
 
 }
