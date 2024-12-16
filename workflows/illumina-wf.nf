@@ -32,7 +32,7 @@ workflow illuminaShotgun {
         sortIndexMinimap(sam2bam.out.bam)
 
         hydra(fastP.out.trimmed)
-        //sierra(hydra.out.consensus)
-        //pdfReport(sierra.out.json, params.markdownFile)
+        sierra(hydra.out.consensus)
+        pdfReport(sierra.out.json, params.markdownFile)
 
 }
