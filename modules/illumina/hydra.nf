@@ -31,24 +31,24 @@ process hydra {
 	script:
 	"""
 	quasitools hydra ${fastq_1} ${fastq_2} \\
-        --generate_consensus \\
-        --mask_reads \\
-        --reporting_threshold ${params.hydraReportThreshold} \\
-        --min_read_qual ${params.hydraMinReadQuality} \\
-        --consensus_pct ${params.hydraConsensusPercent} \\
-        --length_cutoff ${params.hydraMinReadLength} \\
-        --score_cutoff ${params.hydraMinScoreCutoff} \\
-        --min_variant_qual ${params.hydraMinVariantQuality} \\
-        --min_dp ${params.hydraMinVariantDepth} \\
-        --min_ac ${params.hydraMinAlleleCount} \\
-        --min_freq ${params.hydraMinVariantFrequency} \\
-        --id ${sample} \\
-        --output_dir ${sample}
+		--generate_consensus \\
+		--mask_reads \\
+		--reporting_threshold ${params.hydraReportThreshold} \\
+		--min_read_qual ${params.hydraMinReadQuality} \\
+		--consensus_pct ${params.hydraConsensusPercent} \\
+		--length_cutoff ${params.hydraMinReadLength} \\
+		--score_cutoff ${params.hydraMinScoreCutoff} \\
+		--min_variant_qual ${params.hydraMinVariantQuality} \\
+		--min_dp ${params.hydraMinVariantDepth} \\
+		--min_ac ${params.hydraMinAlleleCount} \\
+		--min_freq ${params.hydraMinVariantFrequency} \\
+		--id ${sample} \\
+		--output_dir ${sample}
 
-    cp ${sample}/consensus.fasta ${sample}.consensus.fasta
-
-    cp ${sample}/align.bam ${sample}.align.bam
-    cp ${sample}/align.bam.bai ${sample}.align.bam.bai
+	cp ${sample}/consensus.fasta ${sample}.consensus.fasta
+	
+	cp ${sample}/align.bam ${sample}.align.bam
+	cp ${sample}/align.bam.bai ${sample}.align.bam.bai
 	"""
 
 }
