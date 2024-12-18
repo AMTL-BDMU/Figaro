@@ -23,7 +23,7 @@ nextflow run Figaro \
 ```
 nextflow run Figaro \
 	--illuminaShotgun \
-	--inDir <directory containing forward and reverse fastq> \
+	--inDir <input directory > \
 	--outDir <output directory>
 ```
 
