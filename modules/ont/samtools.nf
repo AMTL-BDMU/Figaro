@@ -1,5 +1,6 @@
 process sam2bam {
-        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+//        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+        conda '/apps/miniconda3/envs/figaro'
 
         tag "Converting sam to bam: ${sample}"
 
@@ -25,7 +26,8 @@ process sam2bam {
 
 
 process sortIndexMinimap {
-        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+//        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+        conda '/apps/miniconda3/envs/figaro'
 
         tag "Sorting and indexing ${sample}"
 
@@ -54,8 +56,9 @@ process sortIndexMinimap {
 
 
 process sortIndexIvar {
-        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
+//        container 'ufuomababatunde/minimap2:v2.26-samtoolsv1.18'
 
+        conda '/apps/miniconda3/envs/figaro'
         tag "Sorting and indexing ${sample}"
 
         publishDir (
