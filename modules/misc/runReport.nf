@@ -158,8 +158,8 @@ process getMappedPercent {
 
 
 process getBAMinfo {
-        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
-
+//        container 'ufuomababatunde/samtools:v1.17-pymodulesv4-seqtkv1.4-r130-dirty'
+        conda '/apps/miniconda3/envs/figaro'
         tag "${sample}"
 
         publishDir (
